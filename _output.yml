@@ -5,7 +5,7 @@ bookdown::gitbook:
     toc:
       collapse: section
       before: |
-        <li><a href="./">APS 240</a></li>
+        <li><a href="./">Basic bio-stats</a></li>
       after: |
         <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
     edit:

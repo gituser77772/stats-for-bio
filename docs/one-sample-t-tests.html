@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 240: Data Analysis and Statistics with R</title>
-  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 12 One sample t-tests | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</title>
+  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta property="og:title" content="Chapter 12 One sample t-tests | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,25 +16,26 @@
   <meta name="github-repo" content="dzchilds/stats-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta name="twitter:title" content="Chapter 12 One sample t-tests | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   
   <meta name="twitter:description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
   
 
-<meta name="author" content="Dylan Z. Childs">
+<meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2018-09-21">
+<meta name="date" content="2019-07-17" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="parametric-statistics.html">
 <link rel="next" href="two-sample-t-test.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -74,41 +74,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,7 +149,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">APS 240</a></li>
+<li><a href="./">Basic bio-stats</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course information and overview</a><ul>
@@ -229,7 +254,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.2.1" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#careful-with-those-p-values"><i class="fa fa-check"></i><b>10.2.1</b> Careful with those <em>p</em>-values</a></li>
 <li class="chapter" data-level="10.2.2" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#presenting-p-values"><i class="fa fa-check"></i><b>10.2.2</b> Presenting <em>p</em>-values</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
+<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.-statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
 </ul></li>
 <li class="part"><span><b>III Simple Statistics</b></span></li>
 <li class="chapter" data-level="11" data-path="parametric-statistics.html"><a href="parametric-statistics.html"><i class="fa fa-check"></i><b>11</b> Parametric statistics</a><ul>
@@ -519,7 +544,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="A.7" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#qu4"><i class="fa fa-check"></i><b>A.7</b> Question 3 -– Frequencies of categorical data</a></li>
 <li class="chapter" data-level="A.8" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#var-cat"><i class="fa fa-check"></i><b>A.8</b> Variables or categories?</a><ul>
-<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
+<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.-regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
 <li class="chapter" data-level="A.8.2" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#making-categories-out-of-continuous-measures"><i class="fa fa-check"></i><b>A.8.2</b> Making categories out of continuous measures</a></li>
 </ul></li>
 </ul></li>
@@ -529,18 +554,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.2.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#title"><i class="fa fa-check"></i><b>B.2.1</b> Title</a></li>
 <li class="chapter" data-level="B.2.2" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#abstract-or-summary"><i class="fa fa-check"></i><b>B.2.2</b> Abstract or Summary</a></li>
 <li class="chapter" data-level="B.2.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#introduction-11"><i class="fa fa-check"></i><b>B.2.3</b> Introduction</a></li>
-<li class="chapter" data-level="B.2.4" data-path="index.html"><a href="index.html#methods"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
+<li class="chapter" data-level="B.2.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#methods-1"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
 <li class="chapter" data-level="B.2.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#results"><i class="fa fa-check"></i><b>B.2.5</b> Results</a></li>
 <li class="chapter" data-level="B.2.6" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#discussion"><i class="fa fa-check"></i><b>B.2.6</b> Discussion</a></li>
 <li class="chapter" data-level="B.2.7" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#acknowledgements"><i class="fa fa-check"></i><b>B.2.7</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B.2.8" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#literature-cited-references"><i class="fa fa-check"></i><b>B.2.8</b> Literature cited / References</a></li>
 <li class="chapter" data-level="B.2.9" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#appendices"><i class="fa fa-check"></i><b>B.2.9</b> Appendices</a></li>
 </ul></li>
-<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a></li>
-<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#approaches-to-writing"><i class="fa fa-check"></i><b>B.4</b>  Approaches to writing</a><ul>
-<li class="chapter" data-level="B.4.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.4.1</b> A last piece of advice…</a></li>
+<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a><ul>
+<li class="chapter" data-level="B.3.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.3.1</b> A last piece of advice…</a></li>
 </ul></li>
-<li class="chapter" data-level="B.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.5</b> Further reading</a></li>
+<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.4</b> Further reading</a></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html"><i class="fa fa-check"></i><b>C</b> One-tailed vs. two-tailed tests</a><ul>
 <li class="chapter" data-level="C.1" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html#introduction-12"><i class="fa fa-check"></i><b>C.1</b> Introduction</a></li>
@@ -562,7 +586,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 240: Data Analysis and Statistics with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</a>
           </h1>
         </div>
 
@@ -627,23 +651,23 @@ You should work through the example in this section.
 </div>
 <p>We’re going to use the plant morph example again to learn how to carry out a one-sample <em>t</em>-test in R. Remember, the data were ‘collected’ to 1) compare the frequency of purple morphs to a prediction and 2) compare the mean dry weight of purple and green morphs. Neither of these questions can be tackled with a one-sample <em>t</em>-test. Instead, let’s pretend that we have unearthed a report from 30 years ago that found the mean size of purple morphs to be 710 grams. We want to evaluate whether the mean size of purple plants in the contemporary population is different from this expectation, because we think they may have adapted to local conditions.</p>
 <p>Read the data in MORPH_DATA.CSV into an R data frame, giving it the name <code>morph.data</code>. We only need the purple morph data for this example, so we need to also <code>filter</code> the data to get hold of only the purple plants:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># read in the data</span>
-morph.data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;MORPH_DATA.CSV&quot;</span>)
-<span class="co"># get just the purple morphs</span>
-morph.data &lt;-<span class="st"> </span><span class="kw">filter</span>(morph.data, Colour <span class="op">==</span><span class="st"> &quot;Purple&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1"><span class="co"># read in the data</span></a>
+<a class="sourceLine" id="cb37-2" title="2">morph.data &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;MORPH_DATA.CSV&quot;</span>)</a>
+<a class="sourceLine" id="cb37-3" title="3"><span class="co"># get just the purple morphs</span></a>
+<a class="sourceLine" id="cb37-4" title="4">morph.data &lt;-<span class="st"> </span><span class="kw">filter</span>(morph.data, Colour <span class="op">==</span><span class="st"> &quot;Purple&quot;</span>)</a></code></pre></div>
 <p>Next, we need to explore the data…</p>
 <div id="visualising-the-data-and-checking-the-assumptions" class="section level3">
 <h3><span class="header-section-number">12.3.1</span> Visualising the data and checking the assumptions</h3>
 <p>We should calculate a few summary statistics and then visualise the sample distribution of purple morph dry weights. We already did this in the <a href="comparing-populations.html#comparing-populations">Comparing populations</a> chapter. Here is the <strong>dplyr</strong> code to produce the descriptive statistics again:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">morph.data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(Weight), 
-            <span class="dt">sd =</span> <span class="kw">sd</span>(Weight),
-            <span class="dt">samp_size =</span> <span class="kw">n</span>())</code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">morph.data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb38-2" title="2"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(Weight), </a>
+<a class="sourceLine" id="cb38-3" title="3">            <span class="dt">sd =</span> <span class="kw">sd</span>(Weight),</a>
+<a class="sourceLine" id="cb38-4" title="4">            <span class="dt">samp_size =</span> <span class="kw">n</span>())</a></code></pre></div>
 <pre><code>##       mean       sd samp_size
 ## 1 766.5638 156.0316        77</code></pre>
 <p>We have 77 purple plants in the sample. Not bad, but we should keep an eye on the normality assumption. Let’s check this assumption:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(morph.data, <span class="kw">aes</span>(<span class="dt">x =</span> Weight)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">50</span>)</code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="kw">ggplot</span>(morph.data, <span class="kw">aes</span>(<span class="dt">x =</span> Weight)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb40-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">50</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:purple-morph-dist-again"></span>
 <img src="stats-for-bio_files/figure-html/purple-morph-dist-again-1.png" alt="Size distributions of purple morph dry weight sample" width="60%" />
 <p class="caption">
@@ -656,14 +680,14 @@ Figure 12.2: Size distributions of purple morph dry weight sample
 <h3><span class="header-section-number">12.3.2</span> Carrying out the test</h3>
 <p>It is fairly straightforward to carry out a one-sample <em>t</em>-test in R. The function we use is called <code>t.test</code> (no surprises there). We read the data into a data frame called <code>morph.data</code>. This has two columns: <code>Weight</code> contains the dry weight biomass of purple plants, and <code>Colour</code> is an index variable that indicates which sample (plant morph) an observation belongs to. We don’t need the <code>Colour</code> column at this point.</p>
 <p>Here’s the R code to carry out a one-sample <em>t</em>-test:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(morph.data<span class="op">$</span>Weight, <span class="dt">mu =</span> <span class="dv">710</span>)</code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1"><span class="kw">t.test</span>(morph.data<span class="op">$</span>Weight, <span class="dt">mu =</span> <span class="dv">710</span>)</a></code></pre></div>
 <p>We have suppressed the output because we want to first focus on how to use <code>t.test</code> function. We have to assign two arguments to control what the function does:</p>
 <ol style="list-style-type: decimal">
 <li><p>The first argument (<code>morph.data$Weight</code>) is simply a numeric vector containing the sample values. We can’t give <code>t.test</code> a data frame when doing a one-sample test. Instead, we have to pull out the column we’re interested in using the <code>$</code> operator.</p></li>
 <li><p>The second argument (called <code>mu</code>) sets the expected value we want to compare the mean to, so <code>mu = 710</code> tells the function to compare the mean to a value of 710. This can be any value we like, depending on the question we’re asking.</p></li>
 </ol>
 <p>That’s it for setting up the test. Let’s take a look at the output:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(morph.data<span class="op">$</span>Weight, <span class="dt">mu =</span> <span class="dv">710</span>)</code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1"><span class="kw">t.test</span>(morph.data<span class="op">$</span>Weight, <span class="dt">mu =</span> <span class="dv">710</span>)</a></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -719,7 +743,7 @@ Calculating degrees of freedom for a one-sample <em>t</em>-test is easy. The deg
 Some computer packages (e.g. Minitab) sometimes give a probability of <em>p</em> = 0.00. This does not mean the probability was actually zero. A probability of zero would mean something was impossible. Since we cannot show something to be impossible by taking samples, we should never say this. When a computer package reports <em>p</em> = 0.00 it just means that the probability was ‘very small’.
 </p>
 <p>
-R uses a different convention for presenting small probabilities. A very small probability is usually given as <code>p-value &lt; 2.2e-16</code>. What does 2.2e-16 mean? This is R-speak for scientific notation, i.e. <span class="math inline">2.2<em>e</em><sup>−16</sup></span> is equivalent to <span class="math inline">2.2 × 10<sup>−16</sup></span>. In terms of reporting the result, we just write <em>p</em> &lt; 0.001 in this case.
+R uses a different convention for presenting small probabilities. A very small probability is usually given as <code>p-value &lt; 2.2e-16</code>. What does 2.2e-16 mean? This is R-speak for scientific notation, i.e. <span class="math inline"><span class="math inline">\(2.2e^{-16}\)</span></span> is equivalent to <span class="math inline"><span class="math inline">\(2.2 \times 10^{-16}\)</span></span>. In terms of reporting the result, we just write <em>p</em> &lt; 0.001 in this case.
 </p>
 </div>
 
@@ -750,10 +774,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -763,6 +788,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/stats-for-bio/edit/master/3_02_t-tests_one_sample.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -778,9 +807,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

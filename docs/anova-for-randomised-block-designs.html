@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 240: Data Analysis and Statistics with R</title>
-  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 25 ANOVA for randomised block designs | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</title>
+  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta property="og:title" content="Chapter 25 ANOVA for randomised block designs | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,25 +16,26 @@
   <meta name="github-repo" content="dzchilds/stats-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta name="twitter:title" content="Chapter 25 ANOVA for randomised block designs | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   
   <meta name="twitter:description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
   
 
-<meta name="author" content="Dylan Z. Childs">
+<meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2018-09-21">
+<meta name="date" content="2019-07-17" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="paired-sample-t-test.html">
 <link rel="next" href="introduction-to-two-way-anova.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -74,41 +74,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,7 +149,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">APS 240</a></li>
+<li><a href="./">Basic bio-stats</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course information and overview</a><ul>
@@ -229,7 +254,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.2.1" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#careful-with-those-p-values"><i class="fa fa-check"></i><b>10.2.1</b> Careful with those <em>p</em>-values</a></li>
 <li class="chapter" data-level="10.2.2" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#presenting-p-values"><i class="fa fa-check"></i><b>10.2.2</b> Presenting <em>p</em>-values</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
+<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.-statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
 </ul></li>
 <li class="part"><span><b>III Simple Statistics</b></span></li>
 <li class="chapter" data-level="11" data-path="parametric-statistics.html"><a href="parametric-statistics.html"><i class="fa fa-check"></i><b>11</b> Parametric statistics</a><ul>
@@ -519,7 +544,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="A.7" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#qu4"><i class="fa fa-check"></i><b>A.7</b> Question 3 -– Frequencies of categorical data</a></li>
 <li class="chapter" data-level="A.8" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#var-cat"><i class="fa fa-check"></i><b>A.8</b> Variables or categories?</a><ul>
-<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
+<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.-regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
 <li class="chapter" data-level="A.8.2" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#making-categories-out-of-continuous-measures"><i class="fa fa-check"></i><b>A.8.2</b> Making categories out of continuous measures</a></li>
 </ul></li>
 </ul></li>
@@ -529,18 +554,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.2.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#title"><i class="fa fa-check"></i><b>B.2.1</b> Title</a></li>
 <li class="chapter" data-level="B.2.2" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#abstract-or-summary"><i class="fa fa-check"></i><b>B.2.2</b> Abstract or Summary</a></li>
 <li class="chapter" data-level="B.2.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#introduction-11"><i class="fa fa-check"></i><b>B.2.3</b> Introduction</a></li>
-<li class="chapter" data-level="B.2.4" data-path="index.html"><a href="index.html#methods"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
+<li class="chapter" data-level="B.2.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#methods-1"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
 <li class="chapter" data-level="B.2.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#results"><i class="fa fa-check"></i><b>B.2.5</b> Results</a></li>
 <li class="chapter" data-level="B.2.6" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#discussion"><i class="fa fa-check"></i><b>B.2.6</b> Discussion</a></li>
 <li class="chapter" data-level="B.2.7" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#acknowledgements"><i class="fa fa-check"></i><b>B.2.7</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B.2.8" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#literature-cited-references"><i class="fa fa-check"></i><b>B.2.8</b> Literature cited / References</a></li>
 <li class="chapter" data-level="B.2.9" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#appendices"><i class="fa fa-check"></i><b>B.2.9</b> Appendices</a></li>
 </ul></li>
-<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a></li>
-<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#approaches-to-writing"><i class="fa fa-check"></i><b>B.4</b>  Approaches to writing</a><ul>
-<li class="chapter" data-level="B.4.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.4.1</b> A last piece of advice…</a></li>
+<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a><ul>
+<li class="chapter" data-level="B.3.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.3.1</b> A last piece of advice…</a></li>
 </ul></li>
-<li class="chapter" data-level="B.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.5</b> Further reading</a></li>
+<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.4</b> Further reading</a></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html"><i class="fa fa-check"></i><b>C</b> One-tailed vs. two-tailed tests</a><ul>
 <li class="chapter" data-level="C.1" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html#introduction-12"><i class="fa fa-check"></i><b>C.1</b> Introduction</a></li>
@@ -562,7 +586,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 240: Data Analysis and Statistics with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</a>
           </h1>
         </div>
 
@@ -747,7 +771,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <p>So… it is possible to carry out a two-way ANOVA without replication, though we can’t learn anything about the interaction with this sort of design. Is this ever useful? There are two situations where this sort of unreplicated two-way arrangement is used:</p>
 <ol style="list-style-type: decimal">
 <li><p><strong>One of the factors is a blocking factor</strong>. We could have guessed this one, given what this chapter is about. If we have a single blocking factor and one treatment factor, and we adopt an RCBD, then this leads to an unreplicated two-way arrangement. The fact that we can’t estimate the interaction is not a problem. In fact, “it’s a feature, not a bug.” We only care about the treatment factor. There might well be an interaction between the blocks and the experimental treatments, but we only need the average effect of treatments across blocks to be able to generalise our results.</p></li>
-<li><p><strong>We are considering two treatment factors (no blocks), but we are only interested in the main effects</strong>. We have three choices in this situation: 1) conduct two separate one-way experiments, 2) construct a single two-way experiment without replication, or 3) construct a single two-way experiment with replication. The third option would be best, but sometimes we just don’t have the resources to do it<a href="#fn21" class="footnoteRef" id="fnref21"><sup>21</sup></a>. What is the next best choice: option 1 or option 2? The two-way experiment without replication is the better option because a two-way design—with or without replication—is always more powerful than a pair of one-way experiments that include an equivalent number of replicates between them.</p></li>
+<li><p><strong>We are considering two treatment factors (no blocks), but we are only interested in the main effects</strong>. We have three choices in this situation: 1) conduct two separate one-way experiments, 2) construct a single two-way experiment without replication, or 3) construct a single two-way experiment with replication. The third option would be best, but sometimes we just don’t have the resources to do it<a href="#fn21" class="footnote-ref" id="fnref21"><sup>21</sup></a>. What is the next best choice: option 1 or option 2? The two-way experiment without replication is the better option because a two-way design—with or without replication—is always more powerful than a pair of one-way experiments that include an equivalent number of replicates between them.</p></li>
 </ol>
 <p>So there is nothing “dodgy” about a two-way design without replication. Indeed, it is the best design to use in some situations. Let’s see how to the analyse a Randomized Complete Block Design experiment.</p>
 <div class="advanced-box">
@@ -777,20 +801,20 @@ You should work through the example from here.
 </p>
 </div>
 <p>The data from the damselfly experiment are in a file called DAMSELS.CSV.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">damsels &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./DAMSELS.CSV&quot;</span>)</code></pre></div>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(damsels)</code></pre></div>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb169-1" title="1">damsels &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;./DAMSELS.CSV&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1"><span class="kw">glimpse</span>(damsels)</a></code></pre></div>
 <pre><code>## Observations: 12
 ## Variables: 3
 ## $ Midge   &lt;int&gt; 304, 464, 320, 578, 509, 458, 680, 740, 630, 356, 390,...
-## $ Species &lt;fctr&gt; Enallagma, Lestes, Pyrrhosoma, Enallagma, Lestes, Pyr...
-## $ Block   &lt;fctr&gt; A, A, A, B, B, B, C, C, C, D, D, D</code></pre>
+## $ Species &lt;fct&gt; Enallagma, Lestes, Pyrrhosoma, Enallagma, Lestes, Pyrr...
+## $ Block   &lt;fct&gt; A, A, A, B, B, B, C, C, C, D, D, D</code></pre>
 <p>The density of midge larvae in each enclosure, after running the experiment for 3 weeks, are in the <code>Midge</code> variable (number m<span class="math inline">\(^{-2}\)</span>); codes for species in the <code>Species</code> variable (levels: <em>Enallagma</em>, <em>Lestes</em> and <em>Pyrrhosoma</em>), and the block identities (A, B, C, D) in the third column.</p>
 <p>The process of analysing an RCBD is essentially the same as any other type of ANOVA. First we fit the model using the <code>lm</code> function and then we use <code>anova</code> to calculate <em>F</em>-statistics, degrees of freedom, and <em>p</em>-values:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">damsels.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Midge <span class="op">~</span><span class="st"> </span>Species <span class="op">+</span><span class="st"> </span>Block, <span class="dt">data =</span> damsels)
-<span class="kw">anova</span>(damsels.model)</code></pre></div>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb172-1" title="1">damsels.model &lt;-<span class="st"> </span><span class="kw">lm</span>(Midge <span class="op">~</span><span class="st"> </span>Species <span class="op">+</span><span class="st"> </span>Block, <span class="dt">data =</span> damsels)</a>
+<a class="sourceLine" id="cb172-2" title="2"><span class="kw">anova</span>(damsels.model)</a></code></pre></div>
 <p>We suppressed the output for now. Notice that we have put two factors on the right hand side of the <code>~</code> symbol. This tells R that we want to fit a model that accounts for the main effects of <code>Species</code> and <code>Block</code>. We put a <code>+</code> between terms to delineate them.</p>
 <p>Notice that we only specified the two main effects (species and blocks)—we cannot test for the interaction. In general an interaction can be included using a colon (the <code>:</code> symbol) with the two interacting variables either side of it as follows:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">Midge <span class="op">~</span><span class="st"> </span>Species <span class="op">+</span><span class="st"> </span>Block <span class="op">+</span><span class="st"> </span>Species<span class="op">:</span>Block</code></pre></div>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb173-1" title="1">Midge <span class="op">~</span><span class="st"> </span>Species <span class="op">+</span><span class="st"> </span>Block <span class="op">+</span><span class="st"> </span>Species<span class="op">:</span>Block</a></code></pre></div>
 <p>If we put an interaction term in this model however, <code>lm</code> will fit it but the results from <code>anova</code> will be useless:</p>
 <pre><code>## Warning in anova.lm(wrong.model): ANOVA F-tests on an essentially perfect
 ## fit are unreliable</code></pre>
@@ -804,7 +828,7 @@ You should work through the example from here.
 ## Residuals      0      0</code></pre>
 <p>Look at the residual degrees of freedom (the error degrees of freedom). The model we just fitted is called a saturated model—there are zero degrees of freedom left over after fitting the three terms. We can’t calculate an error sum of squares, which means we can’t calculate mean squares or <em>F</em>-ratios. This demonstrates that there really is no way to estimate an interaction in ANOVA when there is no replication at the level of each combination of factor levels.</p>
 <p>Here are the results of the global significance tests using the correct ANOVA model for our randomised block experiment:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(damsels.model)</code></pre></div>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb176-1" title="1"><span class="kw">anova</span>(damsels.model)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Midge
@@ -827,8 +851,8 @@ You should work through the example from here.
 <p>The <em>F</em>-ratio is the test statistic for each term. These provides a measure of how large and consistent the effects associated with each term are. Each <em>F</em>-ratio has a pair of degrees of freedom associated with it: one belonging to the term itself, the other due to the error (residual). Together, the <em>F</em>-ratio and its degrees of freedom determines the <em>p</em>-value.</p>
 <p>The <em>p</em>-value gives the probability that the differences between the set of means for each term in the model, or a more extreme difference, could have arisen through sampling variation under the null hypothesis of no difference. We take <em>p</em> &lt; 0.05 as evidence that at least one of the treatments is having an effect. Here, there is a significant effect of block (<em>p</em> &lt; 0.001), which says that the density of midge larvae varies across the lake. It looks like blocking was a good idea—there is a lot of spatial (nuisance) variation in midge larvae density. Of course what we actually care about is the damselfly species effect. This main effect term is not significant (<em>p</em> &gt; 0.05), so we conclude that there is no difference in the impact of the predatory larvae of three damselfly species.</p>
 <p>It is worth looking at what happens if we analyse the damselfly data as though they are from a one-way design. We do this by including only the experimental treatment term (Species) in the model:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">damsels.oneway &lt;-<span class="st"> </span><span class="kw">lm</span>(Midge <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> damsels)
-<span class="kw">anova</span>(damsels.oneway)</code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb180-1" title="1">damsels.oneway &lt;-<span class="st"> </span><span class="kw">lm</span>(Midge <span class="op">~</span><span class="st"> </span>Species, <span class="dt">data =</span> damsels)</a>
+<a class="sourceLine" id="cb180-2" title="2"><span class="kw">anova</span>(damsels.oneway)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: Midge
@@ -925,11 +949,11 @@ You will not be assessed on the material in this section. It is here to demonstr
 </tr>
 </tbody>
 </table>
-<p>This kind of experimental design is called a Latin square design. It gets its name form the fact that if we organise the treatments into the rows and columns of a grid according to week and patient number, we arrive at something like this<a href="#fn22" class="footnoteRef" id="fnref22"><sup>22</sup></a>:</p>
+<p>This kind of experimental design is called a Latin square design. It gets its name form the fact that if we organise the treatments into the rows and columns of a grid according to week and patient number, we arrive at something like this<a href="#fn22" class="footnote-ref" id="fnref22"><sup>22</sup></a>:</p>
 <pre><code>A   B   C
 C   A   B
 B   C   A</code></pre>
-<p>Notice that each letter appears once in each column and row. Mathematicians call this a Latin square arrangement. Latin square designs (and their more exotic friends, e.g. ‘Hyper-Graeco-Latin square designs!’) have a very useful property: they allow us to unambiguously separate treatment and block effects. The reasoning behind this conclusion is quite technical, so we won’t try to explain it. We just want to demonstrate that it is perfectly possible to block an experiment by more than one factor, but this needs to be done with care (this is a ‘seek advice’ situation).</p>
+<p>Notice that each letter appears once in each column and row. Mathematicians call this a Latin square arrangement. Latin square designs (and their more exotic friends, e.g. ‘Hyper-Graeco-Latin square designs!’) have a very useful property: they allow us to unambiguously separate treatment and block effects. The reasoning behind this conclusion is quite technical, so we won’t try to explain it. We just want to demonstrate that it is perfectly possible to block an experiment by more than one factor, but this needs to be done with care (this is a ‘seek advice’ situation).</p>
 
 </div>
 </div>
@@ -940,8 +964,8 @@ B   C   A</code></pre>
 <div class="footnotes">
 <hr />
 <ol start="21">
-<li id="fn21"><p>Having replication at each combination of factors will maximise statistical power, but it also makes for a more robust experiment—if we have only one replicate for a combination and we lose it then we have no information at all from that combination! If we lose just one of a number of replicates in a particular combination it may be a nuisance, but unlikely to ruin everything.<a href="anova-for-randomised-block-designs.html#fnref21">↩</a></p></li>
-<li id="fn22"><p>This example probably isn’t a very good experimental design, for the simple reason that it lacks statistical power. However, we could design a better version of this experiment using the same basic principles if we needed to.<a href="anova-for-randomised-block-designs.html#fnref22">↩</a></p></li>
+<li id="fn21"><p>Having replication at each combination of factors will maximise statistical power, but it also makes for a more robust experiment—if we have only one replicate for a combination and we lose it then we have no information at all from that combination! If we lose just one of a number of replicates in a particular combination it may be a nuisance, but unlikely to ruin everything.<a href="anova-for-randomised-block-designs.html#fnref21" class="footnote-back">↩</a></p></li>
+<li id="fn22"><p>This example probably isn’t a very good experimental design, for the simple reason that it lacks statistical power. However, we could design a better version of this experiment using the same basic principles if we needed to.<a href="anova-for-randomised-block-designs.html#fnref22" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -968,10 +992,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -981,6 +1006,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/stats-for-bio/edit/master/6_03_randomised_block_designs_R.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -996,9 +1025,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

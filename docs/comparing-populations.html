@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 240: Data Analysis and Statistics with R</title>
-  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 9 Comparing populations | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</title>
+  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta property="og:title" content="Chapter 9 Comparing populations | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,25 +16,26 @@
   <meta name="github-repo" content="dzchilds/stats-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta name="twitter:title" content="Chapter 9 Comparing populations | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   
   <meta name="twitter:description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
   
 
-<meta name="author" content="Dylan Z. Childs">
+<meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2018-09-21">
+<meta name="date" content="2019-07-17" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="statistical-significance-and-p-values.html">
 <link rel="next" href="hypotheses-and-p-values.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -74,41 +74,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,7 +149,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">APS 240</a></li>
+<li><a href="./">Basic bio-stats</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course information and overview</a><ul>
@@ -229,7 +254,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.2.1" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#careful-with-those-p-values"><i class="fa fa-check"></i><b>10.2.1</b> Careful with those <em>p</em>-values</a></li>
 <li class="chapter" data-level="10.2.2" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#presenting-p-values"><i class="fa fa-check"></i><b>10.2.2</b> Presenting <em>p</em>-values</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
+<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.-statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
 </ul></li>
 <li class="part"><span><b>III Simple Statistics</b></span></li>
 <li class="chapter" data-level="11" data-path="parametric-statistics.html"><a href="parametric-statistics.html"><i class="fa fa-check"></i><b>11</b> Parametric statistics</a><ul>
@@ -519,7 +544,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="A.7" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#qu4"><i class="fa fa-check"></i><b>A.7</b> Question 3 -– Frequencies of categorical data</a></li>
 <li class="chapter" data-level="A.8" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#var-cat"><i class="fa fa-check"></i><b>A.8</b> Variables or categories?</a><ul>
-<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
+<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.-regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
 <li class="chapter" data-level="A.8.2" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#making-categories-out-of-continuous-measures"><i class="fa fa-check"></i><b>A.8.2</b> Making categories out of continuous measures</a></li>
 </ul></li>
 </ul></li>
@@ -529,18 +554,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.2.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#title"><i class="fa fa-check"></i><b>B.2.1</b> Title</a></li>
 <li class="chapter" data-level="B.2.2" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#abstract-or-summary"><i class="fa fa-check"></i><b>B.2.2</b> Abstract or Summary</a></li>
 <li class="chapter" data-level="B.2.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#introduction-11"><i class="fa fa-check"></i><b>B.2.3</b> Introduction</a></li>
-<li class="chapter" data-level="B.2.4" data-path="index.html"><a href="index.html#methods"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
+<li class="chapter" data-level="B.2.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#methods-1"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
 <li class="chapter" data-level="B.2.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#results"><i class="fa fa-check"></i><b>B.2.5</b> Results</a></li>
 <li class="chapter" data-level="B.2.6" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#discussion"><i class="fa fa-check"></i><b>B.2.6</b> Discussion</a></li>
 <li class="chapter" data-level="B.2.7" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#acknowledgements"><i class="fa fa-check"></i><b>B.2.7</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B.2.8" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#literature-cited-references"><i class="fa fa-check"></i><b>B.2.8</b> Literature cited / References</a></li>
 <li class="chapter" data-level="B.2.9" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#appendices"><i class="fa fa-check"></i><b>B.2.9</b> Appendices</a></li>
 </ul></li>
-<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a></li>
-<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#approaches-to-writing"><i class="fa fa-check"></i><b>B.4</b>  Approaches to writing</a><ul>
-<li class="chapter" data-level="B.4.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.4.1</b> A last piece of advice…</a></li>
+<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a><ul>
+<li class="chapter" data-level="B.3.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.3.1</b> A last piece of advice…</a></li>
 </ul></li>
-<li class="chapter" data-level="B.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.5</b> Further reading</a></li>
+<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.4</b> Further reading</a></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html"><i class="fa fa-check"></i><b>C</b> One-tailed vs. two-tailed tests</a><ul>
 <li class="chapter" data-level="C.1" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html#introduction-12"><i class="fa fa-check"></i><b>C.1</b> Introduction</a></li>
@@ -562,7 +586,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 240: Data Analysis and Statistics with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</a>
           </h1>
         </div>
 
@@ -597,25 +621,25 @@ You should work through this example. Read the data into an R data frame using <
 </p>
 </div>
 <p>The next step is to calculate point estimates of the mean dry weight of each morph. These are our ‘best guess’ of the population means. It is also useful to know something about the sample size and variability of the samples. We can summarise the variability using the standard deviation of each sample (these are not the standard errors!). Here is how to do this using <strong>dplyr</strong>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># using morph data...</span>
-morph.data <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># ...group the data by colour morph category</span>
-<span class="st">  </span><span class="kw">group_by</span>(Colour) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># ... calculate the mean, sd and sample size of weight in each category</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(Weight), 
-            <span class="dt">sd =</span> <span class="kw">sd</span>(Weight),
-            <span class="dt">samp_size =</span> <span class="kw">n</span>())</code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1"><span class="co"># using morph data...</span></a>
+<a class="sourceLine" id="cb32-2" title="2">morph.data <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb32-3" title="3"><span class="st">  </span><span class="co"># ...group the data by colour morph category</span></a>
+<a class="sourceLine" id="cb32-4" title="4"><span class="st">  </span><span class="kw">group_by</span>(Colour) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb32-5" title="5"><span class="st">  </span><span class="co"># ... calculate the mean, sd and sample size of weight in each category</span></a>
+<a class="sourceLine" id="cb32-6" title="6"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">mean =</span> <span class="kw">mean</span>(Weight), </a>
+<a class="sourceLine" id="cb32-7" title="7">            <span class="dt">sd =</span> <span class="kw">sd</span>(Weight),</a>
+<a class="sourceLine" id="cb32-8" title="8">            <span class="dt">samp_size =</span> <span class="kw">n</span>())</a></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
-##   Colour     mean       sd samp_size
-##   &lt;fctr&gt;    &lt;dbl&gt;    &lt;dbl&gt;     &lt;int&gt;
-## 1  Green 707.8424 149.8092       173
-## 2 Purple 766.5638 156.0316        77</code></pre>
+##   Colour  mean    sd samp_size
+##   &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt;     &lt;int&gt;
+## 1 Green   708.  150.       173
+## 2 Purple  767.  156.        77</code></pre>
 <p>This shows that the mean dry weight of the purple morph is greater than that of green morph. The standard deviation estimates indicate that the dry weight of purple morphs is a little more variable than the green morphs.</p>
 <p>These numbers are just point estimates derived from limited samples of the populations. If we sampled the populations again, sampling variation would lead to a different set of estimates. We’re not yet in a position to conclude that purple morphs are bigger than green morphs. To do this, we need to employ a statistical test of some kind.</p>
 <p>We’ll evaluate the statistical significance of these differences in the next section. First, we need to visualise the data. We could do this in a variety of ways. As we only have two samples, we may as well summarise the full sample distributions of each morph’s weight. Here is some <strong>ggplot2</strong> code to make a pair of histograms:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(morph.data, <span class="kw">aes</span>(<span class="dt">x =</span> Weight)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">50</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Colour, <span class="dt">ncol =</span> <span class="dv">1</span>)</code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1"><span class="kw">ggplot</span>(morph.data, <span class="kw">aes</span>(<span class="dt">x =</span> Weight)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb34-2" title="2"><span class="st">  </span><span class="kw">geom_histogram</span>(<span class="dt">binwidth =</span> <span class="dv">50</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb34-3" title="3"><span class="st">  </span><span class="kw">facet_wrap</span>(<span class="op">~</span>Colour, <span class="dt">ncol =</span> <span class="dv">1</span>)</a></code></pre></div>
 <div class="figure" style="text-align: center"><span id="fig:two-morph-dist"></span>
 <img src="stats-for-bio_files/figure-html/two-morph-dist-1.png" alt="Size distributions of purple and green morph samples" width="60%" />
 <p class="caption">
@@ -669,39 +693,39 @@ That said, saying or writing ‘using information in the sample to compare popul
 </ol>
 <p>This scheme is called a permutation test, because it involves random permutation of the group labels. Why is this useful? <em>Each unique random permutation yields an observation from the null distribution of the difference among sample means, under the assumption that this difference is really zero in the population.</em> We can use this to assess whether or not the observed difference is consistent with the hypothesis of no difference, by looking at where it lies relative to this distribution.</p>
 <p>We can easily implement a permutation test in R. We won’t show the code because it uses quite a few tricks that won’t be needed again. It’s worth having a quick look at the permuted samples. The first 50 values from two permuted samples are:</p>
-<pre><code>##    Purple     Green     Green    Purple     Green     Green     Green 
+<pre><code>##     Green    Purple    Purple     Green     Green    Purple     Green 
 ##  714.3592  693.4924  556.2063  653.6619  672.5207  661.0097  445.1001 
-##     Green    Purple     Green    Purple     Green    Purple    Purple 
+##    Purple     Green     Green     Green     Green    Purple    Purple 
 ##  481.5068  647.6679  858.4820  567.4104  597.1629  718.7132  539.8551 
-##     Green     Green    Purple     Green     Green     Green     Green 
+##     Green     Green    Purple    Purple     Green     Green     Green 
 ##  753.0170  807.7700 1085.7036  926.4972  617.1209  632.5897  859.7013 
-##    Purple     Green     Green     Green    Purple     Green     Green 
-##  815.4634  666.7693  573.5907  694.2877  836.6883  665.8489  617.7895 
-##     Green     Green    Purple     Green     Green     Green    Purple 
-##  590.5936  775.8980  686.6790  813.4272  506.3904  566.9971  629.5894 
-##    Purple     Green     Green     Green    Purple     Green    Purple 
-##  878.2477  823.1128  542.7877  507.7345  786.2809  912.5058  853.5730 
-##    Purple     Green     Green    Purple     Green    Purple     Green 
-##  485.2197  879.7922  852.4711  516.7459  534.4548  702.1948  977.8877 
-##     Green 
-##  653.5126</code></pre>
-<pre><code>##    Purple    Purple     Green     Green    Purple     Green     Green 
-##  714.3592  693.4924  556.2063  653.6619  672.5207  661.0097  445.1001 
-##     Green    Purple     Green     Green     Green     Green    Purple 
-##  481.5068  647.6679  858.4820  567.4104  597.1629  718.7132  539.8551 
-##    Purple    Purple    Purple     Green     Green    Purple     Green 
-##  753.0170  807.7700 1085.7036  926.4972  617.1209  632.5897  859.7013 
-##    Purple     Green    Purple     Green     Green     Green     Green 
-##  815.4634  666.7693  573.5907  694.2877  836.6883  665.8489  617.7895 
 ##     Green     Green     Green     Green     Green    Purple     Green 
+##  815.4634  666.7693  573.5907  694.2877  836.6883  665.8489  617.7895 
+##    Purple    Purple     Green     Green     Green     Green     Green 
 ##  590.5936  775.8980  686.6790  813.4272  506.3904  566.9971  629.5894 
-##     Green     Green     Green     Green     Green     Green     Green 
+##    Purple     Green     Green     Green    Purple     Green     Green 
 ##  878.2477  823.1128  542.7877  507.7345  786.2809  912.5058  853.5730 
-##     Green     Green     Green     Green     Green     Green     Green 
+##     Green    Purple    Purple    Purple     Green     Green    Purple 
 ##  485.2197  879.7922  852.4711  516.7459  534.4548  702.1948  977.8877 
 ##     Green 
 ##  653.5126</code></pre>
-<p>The data from each permutation are stored as numeric vectors, where each element of the vector is named according to the morph type it corresponds to (these are the labels we referred to above). The set of numbers doesn’t vary among permuted samples. The only difference between them is the labelling. The difference between the mean dry weights in the first permutation is 7.6698902, while in the second sample, the difference is 23.8737542.</p>
+<pre><code>##    Purple     Green     Green     Green     Green     Green    Purple 
+##  714.3592  693.4924  556.2063  653.6619  672.5207  661.0097  445.1001 
+##    Purple    Purple     Green     Green    Purple    Purple     Green 
+##  481.5068  647.6679  858.4820  567.4104  597.1629  718.7132  539.8551 
+##    Purple     Green    Purple     Green     Green     Green    Purple 
+##  753.0170  807.7700 1085.7036  926.4972  617.1209  632.5897  859.7013 
+##    Purple     Green    Purple    Purple     Green     Green    Purple 
+##  815.4634  666.7693  573.5907  694.2877  836.6883  665.8489  617.7895 
+##     Green     Green     Green     Green    Purple     Green     Green 
+##  590.5936  775.8980  686.6790  813.4272  506.3904  566.9971  629.5894 
+##     Green    Purple     Green     Green    Purple     Green     Green 
+##  878.2477  823.1128  542.7877  507.7345  786.2809  912.5058  853.5730 
+##    Purple     Green     Green    Purple     Green     Green     Green 
+##  485.2197  879.7922  852.4711  516.7459  534.4548  702.1948  977.8877 
+##     Green 
+##  653.5126</code></pre>
+<p>The data from each permutation are stored as numeric vectors, where each element of the vector is named according to the morph type it corresponds to (these are the labels we referred to above). The set of numbers doesn’t vary among permuted samples. The only difference between them is the labelling. The difference between the mean dry weights in the first permutation is 4.0700017, while in the second sample, the difference is -19.9656492.</p>
 <p>What really matters here is the distribution of these differences over the complete set of permutations. This is our approximation to the sampling distribution of the difference between means under the null hypothesis, i.e. it’s our null distribution. Here is a histogram that summarises the 2500 mean differences from the permuted samples:</p>
 <div class="figure" style="text-align: center"><span id="fig:permute-dist"></span>
 <img src="stats-for-bio_files/figure-html/permute-dist-1.png" alt="Difference between means of permuted samples" width="80%" />
@@ -711,19 +735,18 @@ Figure 9.2: Difference between means of permuted samples
 </div>
 <p>Notice that the distribution is centred at zero. This makes sense. If we take a set of numbers and randomly allocate them to groups, on average, we expect the difference between the mean of these groups to be zero.</p>
 <p>The red line shows the estimated value of the difference between the mean purple and green morph dry weights <em>in the real sample</em>. This is our test statistic. The key thing to pay attention to here is the location of this value within the null distribution. It looks like the estimated difference would be very unlikely to have arisen through sampling variation if the population means of the two groups were identical. We can say this because the estimated difference lies at the end of one ‘tail’ of the null distribution.</p>
-<p>We can use the null distribution to quantify the probability of seeing the observed difference under the null hypothesis. Only 4 out of the 2500 permutations ended up being equal to, or ‘more extreme’ (more positive) than, the observed difference. The probability of finding a difference in the means equal to, or more positive than, the observed difference is therefore, <em>p</em> = 0.0016. This is the <em>p</em>-value associated with our significance test.</p>
+<p>We can use the null distribution to quantify the probability of seeing the observed difference under the null hypothesis. Only 10 out of the 2500 permutations ended up being equal to, or ‘more extreme’ (more positive) than, the observed difference. The probability of finding a difference in the means equal to, or more positive than, the observed difference is therefore, <em>p</em> = 0.004. This is the <em>p</em>-value associated with our significance test.</p>
 <p>Let’s run through the interpretation of that <em>p</em>-value. Here’s the general chain of logic again… The <em>p</em>-value is the probability of obtaining a test statistic (i.e. the difference between means) equal to, or ‘more extreme’ than, the estimated value, assuming the null hypothesis is true. The null hypothesis is one of no effect (i.e. the difference is 0), so a low <em>p</em>-value can be interpreted as evidence for the effect being present. How low does the <em>p</em>-value have to be before we decide we have ‘enough evidence’? A significance threshold of <em>p</em> &lt; 0.05 is conventionally used in biology. If we find <em>p</em> &lt; 0.05, then we conclude that we found a statistically significant effect.</p>
-<p>Here’s how this logic applies to our example… The permutation test assumed there was no difference between the purple and green morphs, so the low <em>p</em>-value indicates that the estimated difference between the mean dry weight of purple and green morphs was unlikely to have occurred by chance, <em>if</em> there is really no difference at the population level. This means we should interpret the low <em>p</em>-value as evidence for the existence of a difference in mean dry weight among the populations of purple and green morphs. Since <em>p</em> = 0.0016, we say we found a statistically significant difference at the 5% level.</p>
+<p>Here’s how this logic applies to our example… The permutation test assumed there was no difference between the purple and green morphs, so the low <em>p</em>-value indicates that the estimated difference between the mean dry weight of purple and green morphs was unlikely to have occurred by chance, <em>if</em> there is really no difference at the population level. This means we should interpret the low <em>p</em>-value as evidence for the existence of a difference in mean dry weight among the populations of purple and green morphs. Since <em>p</em> = 0.004, we say we found a statistically significant difference at the 5% level.</p>
 <div class="advanced-box">
 <p>
 <strong>Directional tests</strong>
 </p>
 <p>
-The test we just did is a ‘one-tailed’ test. It’s called a ‘one-tailed’ because we only looked at one end of the null distribution. This kind of test is appropriate for evaluating directional predictions (e.g. purple &gt; green). If, instead of testing whether purple plants were larger than green plants, we just want to know if they were different in some way (i.e. in either direction), we should use a ‘two-tailed’ test. These work by looking at both ends of the null distribution. We won’t do this here though—the one- vs two-tailed distinction is discussed in the <a href="one-tailed-vs-two-tailed-tests.html#one-tailed-vs.two-tailed-tests">One-tailed vs. two-tailed tests</a> supplementary chapter.
+The test we just did is a ‘one-tailed’ test. It’s called a ‘one-tailed’ because we only looked at one end of the null distribution. This kind of test is appropriate for evaluating directional predictions (e.g. purple &gt; green). If, instead of testing whether purple plants were larger than green plants, we just want to know if they were different in some way (i.e. in either direction), we should use a ‘two-tailed’ test. These work by looking at both ends of the null distribution. We won’t do this here though—the one- vs two-tailed distinction is discussed in the <a href="one-tailed-vs-two-tailed-tests.html#one-tailed-vs.-two-tailed-tests">One-tailed vs. two-tailed tests</a> supplementary chapter.
 </p>
 </div>
 <p>Here’s how we might summarise our analysis in in a written report:</p>
-<pre><code>## Warning: package &#39;bindrcpp&#39; was built under R version 3.3.2</code></pre>
 <blockquote>
 <p>The mean dry weight biomass of purple plants (77) was significantly greater than that of green plants (173) (one-tailed permutation test, p&lt;0.05).</p>
 </blockquote>
@@ -769,10 +792,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -782,6 +806,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/stats-for-bio/edit/master/2_03_comparisons_p-values.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -797,9 +825,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

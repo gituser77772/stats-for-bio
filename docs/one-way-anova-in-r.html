@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 240: Data Analysis and Statistics with R</title>
-  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 18 One-way ANOVA in R | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</title>
+  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta property="og:title" content="Chapter 18 One-way ANOVA in R | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,25 +16,26 @@
   <meta name="github-repo" content="dzchilds/stats-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta name="twitter:title" content="Chapter 18 One-way ANOVA in R | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   
   <meta name="twitter:description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
   
 
-<meta name="author" content="Dylan Z. Childs">
+<meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2018-09-21">
+<meta name="date" content="2019-07-17" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="introduction-to-one-way-anova.html">
 <link rel="next" href="assumptions-and-diagnostics.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -74,41 +74,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,7 +149,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">APS 240</a></li>
+<li><a href="./">Basic bio-stats</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course information and overview</a><ul>
@@ -229,7 +254,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.2.1" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#careful-with-those-p-values"><i class="fa fa-check"></i><b>10.2.1</b> Careful with those <em>p</em>-values</a></li>
 <li class="chapter" data-level="10.2.2" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#presenting-p-values"><i class="fa fa-check"></i><b>10.2.2</b> Presenting <em>p</em>-values</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
+<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.-statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
 </ul></li>
 <li class="part"><span><b>III Simple Statistics</b></span></li>
 <li class="chapter" data-level="11" data-path="parametric-statistics.html"><a href="parametric-statistics.html"><i class="fa fa-check"></i><b>11</b> Parametric statistics</a><ul>
@@ -519,7 +544,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="A.7" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#qu4"><i class="fa fa-check"></i><b>A.7</b> Question 3 -– Frequencies of categorical data</a></li>
 <li class="chapter" data-level="A.8" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#var-cat"><i class="fa fa-check"></i><b>A.8</b> Variables or categories?</a><ul>
-<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
+<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.-regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
 <li class="chapter" data-level="A.8.2" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#making-categories-out-of-continuous-measures"><i class="fa fa-check"></i><b>A.8.2</b> Making categories out of continuous measures</a></li>
 </ul></li>
 </ul></li>
@@ -529,18 +554,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.2.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#title"><i class="fa fa-check"></i><b>B.2.1</b> Title</a></li>
 <li class="chapter" data-level="B.2.2" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#abstract-or-summary"><i class="fa fa-check"></i><b>B.2.2</b> Abstract or Summary</a></li>
 <li class="chapter" data-level="B.2.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#introduction-11"><i class="fa fa-check"></i><b>B.2.3</b> Introduction</a></li>
-<li class="chapter" data-level="B.2.4" data-path="index.html"><a href="index.html#methods"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
+<li class="chapter" data-level="B.2.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#methods-1"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
 <li class="chapter" data-level="B.2.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#results"><i class="fa fa-check"></i><b>B.2.5</b> Results</a></li>
 <li class="chapter" data-level="B.2.6" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#discussion"><i class="fa fa-check"></i><b>B.2.6</b> Discussion</a></li>
 <li class="chapter" data-level="B.2.7" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#acknowledgements"><i class="fa fa-check"></i><b>B.2.7</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B.2.8" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#literature-cited-references"><i class="fa fa-check"></i><b>B.2.8</b> Literature cited / References</a></li>
 <li class="chapter" data-level="B.2.9" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#appendices"><i class="fa fa-check"></i><b>B.2.9</b> Appendices</a></li>
 </ul></li>
-<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a></li>
-<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#approaches-to-writing"><i class="fa fa-check"></i><b>B.4</b>  Approaches to writing</a><ul>
-<li class="chapter" data-level="B.4.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.4.1</b> A last piece of advice…</a></li>
+<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a><ul>
+<li class="chapter" data-level="B.3.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.3.1</b> A last piece of advice…</a></li>
 </ul></li>
-<li class="chapter" data-level="B.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.5</b> Further reading</a></li>
+<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.4</b> Further reading</a></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html"><i class="fa fa-check"></i><b>C</b> One-tailed vs. two-tailed tests</a><ul>
 <li class="chapter" data-level="C.1" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html#introduction-12"><i class="fa fa-check"></i><b>C.1</b> Introduction</a></li>
@@ -562,7 +586,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 240: Data Analysis and Statistics with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</a>
           </h1>
         </div>
 
@@ -587,18 +611,18 @@ You should begin working through the corn crake example from this point. You wil
 </div>
 <div id="factors-in-r" class="section level2">
 <h2><span class="header-section-number">18.2</span> Factors in R</h2>
-<p>Remember factors? An experimental factor is a controlled variable whose levels (‘values’) are set by the experimenter. R is primarily designed to carry out data analysis so we shouldn’t be surprised that it has a special type of vector to represent factors. This kind of vector in R is called, rather sensibly, a factor. We have largely ignored factors in R up until now because we haven’t needed to use them<a href="#fn8" class="footnoteRef" id="fnref8"><sup>8</sup></a>. However, we now need to understand how they work because much of R’s plotting and statistical modelling facilities rely on factors.</p>
+<p>Remember factors? An experimental factor is a controlled variable whose levels (‘values’) are set by the experimenter. R is primarily designed to carry out data analysis so we shouldn’t be surprised that it has a special type of vector to represent factors. This kind of vector in R is called, rather sensibly, a factor. We have largely ignored factors in R up until now because we haven’t needed to use them<a href="#fn8" class="footnote-ref" id="fnref8"><sup>8</sup></a>. However, we now need to understand how they work because much of R’s plotting and statistical modelling facilities rely on factors.</p>
 <p>We’ll look at the corn crake data (stored in <code>corn_crake</code>) to begin getting a sense of how they work:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corn_crake &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;CORN_CRAKE.CSV&quot;</span>)</code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1">corn_crake &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;CORN_CRAKE.CSV&quot;</span>)</a></code></pre></div>
 <p>First, we need to be able to actually recognise a factor when we see one. Here is the result of using <code>glimpse</code> with the diet data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(corn_crake)</code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="kw">glimpse</span>(corn_crake)</a></code></pre></div>
 <pre><code>## Observations: 40
 ## Variables: 2
-## $ Supplement &lt;fctr&gt; None, None, None, None, None, None, None, None, Si...
+## $ Supplement &lt;fct&gt; None, None, None, None, None, None, None, None, Siz...
 ## $ WeightGain &lt;int&gt; 13, 20, 17, 16, 15, 14, 10, 20, 15, 18, 10, 22, 23,...</code></pre>
-<p>This tells us that there are 40 observations in the data set and 2 variables (columns), called <code>Supplement</code> and <code>WeightGain</code>. The text next to <code>$ Supplement</code> says <code>&lt;fctr&gt;</code>. We can guess what that stands for…. it is telling us that the <code>Supplement</code> vector inside <code>corn_crake</code> is a factor. The <code>Supplement</code> factor was created automatically when we read the data stored in CORN_CRAKE.CSV into R. When we read in a column of data that is non-numeric, <code>read.csv</code> will often decide to turn it into a factor for us<a href="#fn9" class="footnoteRef" id="fnref9"><sup>9</sup></a>.</p>
+<p>This tells us that there are 40 observations in the data set and 2 variables (columns), called <code>Supplement</code> and <code>WeightGain</code>. The text next to <code>$ Supplement</code> says <code>&lt;fctr&gt;</code>. We can guess what that stands for…. it is telling us that the <code>Supplement</code> vector inside <code>corn_crake</code> is a factor. The <code>Supplement</code> factor was created automatically when we read the data stored in CORN_CRAKE.CSV into R. When we read in a column of data that is non-numeric, <code>read.csv</code> will often decide to turn it into a factor for us<a href="#fn9" class="footnote-ref" id="fnref9"><sup>9</sup></a>.</p>
 <p>R is generally fairly good at alerting us to the fact that a variable is stored as a factor. For example, look what happens if we extract the <code>Supplement</code> column from <code>corn_crake</code> and print it to the screen:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corn_crake<span class="op">$</span>Supplement</code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb84-1" title="1">corn_crake<span class="op">$</span>Supplement</a></code></pre></div>
 <pre><code>##  [1] None      None      None      None      None      None      None     
 ##  [8] None      Sizefast  Sizefast  Sizefast  Sizefast  Sizefast  Sizefast 
 ## [15] Sizefast  Sizefast  Linseed   Linseed   Linseed   Linseed   Linseed  
@@ -613,8 +637,8 @@ You should begin working through the corn crake example from this point. You wil
 <div id="visualising-the-data-1" class="section level2">
 <h2><span class="header-section-number">18.3</span> Visualising the data</h2>
 <p>As always before we fit a model we should plot our data. We can do this using a boxplot.</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(corn_crake, <span class="kw">aes</span>(<span class="dt">x =</span> Supplement, <span class="dt">y =</span> WeightGain)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">geom_boxplot</span>()</code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">ggplot</span>(corn_crake, <span class="kw">aes</span>(<span class="dt">x =</span> Supplement, <span class="dt">y =</span> WeightGain)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb87-2" title="2"><span class="st">  </span><span class="kw">geom_boxplot</span>()</a></code></pre></div>
 <p><img src="stats-for-bio_files/figure-html/unnamed-chunk-135-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>At this point we just want to get an idea of what our data look like. We don’t need to worry about customising the plot to make it look nicer.</p>
 <div class="do-something">
@@ -630,7 +654,7 @@ Have a look at the plot and think about what it means biologically e.g. which s
 <h2><span class="header-section-number">18.4</span> Fitting the ANOVA model</h2>
 <p>Carrying out ANOVA in R is quite simple, but as with regression, there is more than one step. The first involves a process known as <em>fitting the model</em> (or just <em>model fitting</em>). This is the step where R calculates the relevant means, along with the additional information needed to generate the results in step two. We call this step model fitting because an ANOVA is a type of model for our data: it is a model that allows the mean of a variable to vary among groups.</p>
 <p>How do we fit an ANOVA model in R? We will do it using the <code>lm</code> function again. Remember what the letters ‘lm’ stand for? They stand for ‘(general) linear model’. So… an ANOVA model is just another special case of the general linear model. Here is how we fit a one-way ANOVA in R, using the corncrake data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corncrake_model &lt;-<span class="st"> </span><span class="kw">lm</span>(WeightGain <span class="op">~</span><span class="st"> </span>Supplement, <span class="dt">data =</span> corn_crake)</code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1">corncrake_model &lt;-<span class="st"> </span><span class="kw">lm</span>(WeightGain <span class="op">~</span><span class="st"> </span>Supplement, <span class="dt">data =</span> corn_crake)</a></code></pre></div>
 <p>Hopefully by now this kind of thing is starting to look familiar. We have to assign two arguments:</p>
 <ol style="list-style-type: decimal">
 <li><p>The first argument is a formula. We know this because it includes a ‘tilde’ symbol: <code>~</code>. The variable name on the left of the <code>~</code> must be the numeric response variable whose means we want to compare among groups. The variable on the right should be the indicator (or predictor) variable that says which group each observation belongs to. These are <code>WeightGain</code> and <code>Supplement</code>, respectively.</p></li>
@@ -645,7 +669,7 @@ How does R know we want to use an ANOVA model? After all, we didn’t specify th
 </p>
 </div>
 <p>Notice that we did not print the results to the console. Instead, we assigned the result a name —<code>corncrake_model</code> now refers to a <strong>model object</strong>. What happens if we print this to the console?</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corncrake_model</code></pre></div>
+<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb89-1" title="1">corncrake_model</a></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = WeightGain ~ Supplement, data = corn_crake)
@@ -661,7 +685,7 @@ How does R know we want to use an ANOVA model? After all, we didn’t specify th
 <h2><span class="header-section-number">18.5</span> Interpreting the results</h2>
 <p>What we really want is a <em>p</em>-value to help us determine whether there is statistical support for a difference among the group means. That is, we need to calculate things like degrees of freedom, sums of squares, mean squares, and the <em>F</em>-ratio. This is step 2.</p>
 <p>We use the <code>anova</code> function to do this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">anova</span>(corncrake_model)</code></pre></div>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb91-1" title="1"><span class="kw">anova</span>(corncrake_model)</a></code></pre></div>
 <pre><code>## Analysis of Variance Table
 ## 
 ## Response: WeightGain
@@ -688,7 +712,8 @@ How does R know we want to use an ANOVA model? After all, we didn’t specify th
 <h2><span class="header-section-number">18.6</span> Summarising and presenting the results of ANOVA</h2>
 <p>As with all tests it will usually be necessary to summarise the result from the test in a written form. With an ANOVA on several treatments, we always need to at least summarise the results of the global test of significance, for example:</p>
 <blockquote>
-<p>There was a significant effect of supplement on the weight gain of the corncrake hatchlings (ANOVA: F=5.1; d.f.= 4,35; p&lt;0.01).</p>
+<p>There was a significant effect of supplement on the weight gain of the corncrake hatchlings
+(ANOVA: F=5.1; d.f.= 4,35; p&lt;0.01).</p>
 </blockquote>
 <p>There are several things to notice here:</p>
 <ul>
@@ -703,62 +728,64 @@ You won’t be assessed on your ability to produce summary plots such as those b
 </p>
 </div>
 <p>Box and whiskers plots and multi-panel dot plots / histograms are exploratory data analysis tools. We use them at the beginning of an analysis to understand the data, but we don’t tend to present them in project reports or scientific papers. Since ANOVA is designed to compare means, a minimal plot needs to show the point estimates of each group-specific mean, along with a measure of their uncertainty. We often use the standard error of the means to summarise this uncertainty.</p>
-<p>In order to be able to plot these quantities we first have to calculate them. We can do this using <code>dplyr</code>. Here’s a reminder of the equation for the standard error of a mean: <span class="math display">\[
+<p>In order to be able to plot these quantities we first have to calculate them. We can do this using <code>dplyr</code>. Here’s a reminder of the equation for the standard error of a mean:
+<span class="math display">\[
 SE = \frac{\text{Standard deviation of the sample}}{\sqrt{\text{Sample size}}} = \frac{SD}{\sqrt{n}}
-\]</span> So, the required <code>dplyr</code> code is:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># get the mean and the SE for each supplement</span>
-corncrake_stats &lt;-<span class="st"> </span>
-<span class="st">  </span>corn_crake <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">group_by</span>(Supplement) <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Mean =</span> <span class="kw">mean</span>(WeightGain), <span class="dt">SE =</span> <span class="kw">sd</span>(WeightGain)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()))
-<span class="co"># print to the console</span>
-corncrake_stats</code></pre></div>
+\]</span>
+So, the required <code>dplyr</code> code is:</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb94-1" title="1"><span class="co"># get the mean and the SE for each supplement</span></a>
+<a class="sourceLine" id="cb94-2" title="2">corncrake_stats &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb94-3" title="3"><span class="st">  </span>corn_crake <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb94-4" title="4"><span class="st">  </span><span class="kw">group_by</span>(Supplement) <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb94-5" title="5"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Mean =</span> <span class="kw">mean</span>(WeightGain), <span class="dt">SE =</span> <span class="kw">sd</span>(WeightGain)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">n</span>()))</a>
+<a class="sourceLine" id="cb94-6" title="6"><span class="co"># print to the console</span></a>
+<a class="sourceLine" id="cb94-7" title="7">corncrake_stats</a></code></pre></div>
 <pre><code>## # A tibble: 5 x 3
-##   Supplement   Mean       SE
-##       &lt;fctr&gt;  &lt;dbl&gt;    &lt;dbl&gt;
-## 1     Allvit 14.250 1.979809
-## 2  Earlybird 22.875 1.231107
-## 3    Linseed 18.500 1.069045
-## 4       None 15.625 1.209154
-## 5   Sizefast 19.000 1.690309</code></pre>
+##   Supplement  Mean    SE
+##   &lt;fct&gt;      &lt;dbl&gt; &lt;dbl&gt;
+## 1 Allvit      14.2  1.98
+## 2 Earlybird   22.9  1.23
+## 3 Linseed     18.5  1.07
+## 4 None        15.6  1.21
+## 5 Sizefast    19    1.69</code></pre>
 <p>Notice that we used the <code>n</code> function to get the sample size. The rest of this R code should be quite familiar by now. We gave the data frame containing the group-specific means and standard errors the name <code>corncrake_stats</code>.</p>
 <p>We have a couple of different options for making a good summary figure. The first plots a point for each mean and places error bars around this to show ±1 SE. In order to do this using <code>ggplot2</code> we have to add <em>two layers</em>—the first specifies the points (the means) and the second specifies the error bar (the SE). Here is how to do this:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> corncrake_stats, 
-       <span class="kw">aes</span>(<span class="dt">x =</span> Supplement, <span class="dt">y =</span> Mean, <span class="dt">ymin =</span> Mean <span class="op">-</span><span class="st"> </span>SE, <span class="dt">ymax =</span> Mean <span class="op">+</span><span class="st"> </span>SE)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># this adds the means</span>
-<span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># this adds the error bars</span>
-<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">width =</span> <span class="fl">0.1</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># controlling the appearance</span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># use sensible labels</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Supplement treatment&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Weight gain (g)&quot;</span>) <span class="op">+</span>
-<span class="st">  </span><span class="co"># flip x and y axes</span>
-<span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span>
-<span class="st">  </span><span class="co"># use a more professional theme</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode" id="cb96"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb96-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> corncrake_stats, </a>
+<a class="sourceLine" id="cb96-2" title="2">       <span class="kw">aes</span>(<span class="dt">x =</span> Supplement, <span class="dt">y =</span> Mean, <span class="dt">ymin =</span> Mean <span class="op">-</span><span class="st"> </span>SE, <span class="dt">ymax =</span> Mean <span class="op">+</span><span class="st"> </span>SE)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-3" title="3"><span class="st">  </span><span class="co"># this adds the means</span></a>
+<a class="sourceLine" id="cb96-4" title="4"><span class="st">  </span><span class="kw">geom_point</span>(<span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>, <span class="dt">size =</span> <span class="dv">3</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-5" title="5"><span class="st">  </span><span class="co"># this adds the error bars</span></a>
+<a class="sourceLine" id="cb96-6" title="6"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">width =</span> <span class="fl">0.1</span>, <span class="dt">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-7" title="7"><span class="st">  </span><span class="co"># controlling the appearance</span></a>
+<a class="sourceLine" id="cb96-8" title="8"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb96-9" title="9"><span class="st">  </span><span class="co"># use sensible labels</span></a>
+<a class="sourceLine" id="cb96-10" title="10"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Supplement treatment&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Weight gain (g)&quot;</span>) <span class="op">+</span></a>
+<a class="sourceLine" id="cb96-11" title="11"><span class="st">  </span><span class="co"># flip x and y axes</span></a>
+<a class="sourceLine" id="cb96-12" title="12"><span class="st">  </span><span class="kw">coord_flip</span>() <span class="op">+</span></a>
+<a class="sourceLine" id="cb96-13" title="13"><span class="st">  </span><span class="co"># use a more professional theme</span></a>
+<a class="sourceLine" id="cb96-14" title="14"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="stats-for-bio_files/figure-html/diet-summary-initial-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>First, notice that we set the <code>data</code> argument in <code>ggplot</code> to be the data frame containing the summary statistics (not the original raw data). Second, we set up four aesthetic mappings: <code>x</code>, <code>y</code>, <code>ymin</code> and <code>ymax</code>. Third, we added one layer using <code>geom_point</code>. This adds the individual points based on the <code>x</code> and <code>y</code> mappings. Fourth, we added a second layer using <code>geom_errorbar</code>. This adds the error bars based on the <code>x</code>, <code>ymin</code> and <code>ymax</code> mappings. Finally we adjusted the y limits and the labels (this last step is optional). Ask a demonstrator to step through this with you if you are confused by it.</p>
 <p>Take a close look at that last figure. Is there anything wrong with it? The control group in this study is the no diet group (‘None’). Conventionally, we display the control groups first. R hasn’t done this because the levels of <code>Supplement</code> are in alphabetical order by default. If we want to change the order of plotting, we have to change the way the levels are organised. Here is how to to this using <code>dplyr</code> and a function called <code>factor</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">corncrake_stats &lt;-<span class="st"> </span>
-<span class="st">  </span>corncrake_stats <span class="op">%&gt;%</span><span class="st"> </span>
-<span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Supplement =</span> <span class="kw">factor</span>(Supplement, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;None&quot;</span>, <span class="st">&quot;Sizefast&quot;</span>, <span class="st">&quot;Linseed&quot;</span>, <span class="st">&quot;Allvit&quot;</span>, <span class="st">&quot;Earlybird&quot;</span>)))</code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1">corncrake_stats &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb97-2" title="2"><span class="st">  </span>corncrake_stats <span class="op">%&gt;%</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb97-3" title="3"><span class="st">  </span><span class="kw">mutate</span>(<span class="dt">Supplement =</span> <span class="kw">factor</span>(Supplement, <span class="dt">levels =</span> <span class="kw">c</span>(<span class="st">&quot;None&quot;</span>, <span class="st">&quot;Sizefast&quot;</span>, <span class="st">&quot;Linseed&quot;</span>, <span class="st">&quot;Allvit&quot;</span>, <span class="st">&quot;Earlybird&quot;</span>)))</a></code></pre></div>
 <p>We use <code>mutate</code> to update <code>Supplement</code>, using the <code>factor</code> function to redefine the levels of <code>Supplement</code> and overwrite the original. Now, when we rerun the <code>ggplot2</code> code we end up with a figure like this:</p>
 <p><img src="stats-for-bio_files/figure-html/diet-summary-releveled-1.png" width="480" style="display: block; margin: auto;" /></p>
 <p>The treatments are presented in the order specified with the <code>levels</code> argument. Problem solved!</p>
 <p>A bar plot is another popular visualisation for summarising the results of an ANOVA. We only have to change one thing about the last chunk of <code>ggplot2</code> code to make a bar plot. Instead of using <code>geom_point</code>, we use <code>geom_col</code> (we’ll drop the <code>coord_flip</code> bit too):</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(<span class="dt">data =</span> corncrake_stats, 
-       <span class="kw">aes</span>(<span class="dt">x =</span> Supplement, <span class="dt">y =</span> Mean, <span class="dt">ymin =</span> Mean <span class="op">-</span><span class="st"> </span>SE, <span class="dt">ymax =</span> Mean <span class="op">+</span><span class="st"> </span>SE)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># this adds the means</span>
-<span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># this adds the error bars</span>
-<span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">width =</span> <span class="fl">0.1</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># controlling the appearance</span>
-<span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># use sensible labels</span>
-<span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Supplement treatment&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Weight gain (g)&quot;</span>) <span class="op">+</span><span class="st"> </span>
-<span class="st">  </span><span class="co"># use a more professional theme</span>
-<span class="st">  </span><span class="kw">theme_bw</span>()</code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="kw">ggplot</span>(<span class="dt">data =</span> corncrake_stats, </a>
+<a class="sourceLine" id="cb98-2" title="2">       <span class="kw">aes</span>(<span class="dt">x =</span> Supplement, <span class="dt">y =</span> Mean, <span class="dt">ymin =</span> Mean <span class="op">-</span><span class="st"> </span>SE, <span class="dt">ymax =</span> Mean <span class="op">+</span><span class="st"> </span>SE)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-3" title="3"><span class="st">  </span><span class="co"># this adds the means</span></a>
+<a class="sourceLine" id="cb98-4" title="4"><span class="st">  </span><span class="kw">geom_col</span>(<span class="dt">fill =</span> <span class="st">&quot;lightgrey&quot;</span>, <span class="dt">colour =</span> <span class="st">&quot;grey&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-5" title="5"><span class="st">  </span><span class="co"># this adds the error bars</span></a>
+<a class="sourceLine" id="cb98-6" title="6"><span class="st">  </span><span class="kw">geom_errorbar</span>(<span class="dt">width =</span> <span class="fl">0.1</span>, <span class="dt">colour =</span> <span class="st">&quot;black&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-7" title="7"><span class="st">  </span><span class="co"># controlling the appearance</span></a>
+<a class="sourceLine" id="cb98-8" title="8"><span class="st">  </span><span class="kw">scale_y_continuous</span>(<span class="dt">limits =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-9" title="9"><span class="st">  </span><span class="co"># use sensible labels</span></a>
+<a class="sourceLine" id="cb98-10" title="10"><span class="st">  </span><span class="kw">xlab</span>(<span class="st">&quot;Supplement treatment&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Weight gain (g)&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb98-11" title="11"><span class="st">  </span><span class="co"># use a more professional theme</span></a>
+<a class="sourceLine" id="cb98-12" title="12"><span class="st">  </span><span class="kw">theme_bw</span>()</a></code></pre></div>
 <p><img src="stats-for-bio_files/figure-html/diet-summary-points-1.png" width="336" style="display: block; margin: auto;" /></p>
 
 </div>
@@ -770,8 +797,8 @@ corncrake_stats</code></pre></div>
 <div class="footnotes">
 <hr />
 <ol start="8">
-<li id="fn8"><p>We have worked with factors, but only when reordering the labels of a categorical variable plotted in <code>ggplot2</code>.<a href="one-way-anova-in-r.html#fnref8">↩</a></p></li>
-<li id="fn9"><p>This behaviour isn’t really all that helpful. It would be better if R let us, the users, decide whether or not to turn something into a factor vector. However, in the early days of R computers had limited memory, which meant storing a categorical variable as a factor made sense; it saved memory. This benefit of factors has long since disappeared, but we’re stuck with the turn-everything-into-a-factor behaviour.<a href="one-way-anova-in-r.html#fnref9">↩</a></p></li>
+<li id="fn8"><p>We have worked with factors, but only when reordering the labels of a categorical variable plotted in <code>ggplot2</code>.<a href="one-way-anova-in-r.html#fnref8" class="footnote-back">↩</a></p></li>
+<li id="fn9"><p>This behaviour isn’t really all that helpful. It would be better if R let us, the users, decide whether or not to turn something into a factor vector. However, in the early days of R computers had limited memory, which meant storing a categorical variable as a factor made sense; it saved memory. This benefit of factors has long since disappeared, but we’re stuck with the turn-everything-into-a-factor behaviour.<a href="one-way-anova-in-r.html#fnref9" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -798,10 +825,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -811,6 +839,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/stats-for-bio/edit/master/4_04_one_way_anova_R.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -826,9 +858,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

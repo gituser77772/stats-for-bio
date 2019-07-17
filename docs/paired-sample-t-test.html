@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html >
-
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
 
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>APS 240: Data Analysis and Statistics with R</title>
-  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield">
-  <meta name="generator" content="bookdown 0.5 and GitBook 2.6.7">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 24 Paired-sample t-test | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</title>
+  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
+  <meta name="generator" content="bookdown 0.12 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta property="og:title" content="Chapter 24 Paired-sample t-test | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   <meta property="og:type" content="book" />
   
   
@@ -17,25 +16,26 @@
   <meta name="github-repo" content="dzchilds/stats-for-bio" />
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="APS 240: Data Analysis and Statistics with R" />
+  <meta name="twitter:title" content="Chapter 24 Paired-sample t-test | Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R" />
   
   <meta name="twitter:description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
   
 
-<meta name="author" content="Dylan Z. Childs">
+<meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2018-09-21">
+<meta name="date" content="2019-07-17" />
 
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
 <link rel="prev" href="principles-of-experimental-design.html">
 <link rel="next" href="anova-for-randomised-block-designs.html">
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
@@ -74,41 +74,66 @@
 
 
 <style type="text/css">
-div.sourceCode { overflow-x: auto; }
-table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
-  margin: 0; padding: 0; vertical-align: baseline; border: none; }
-table.sourceCode { width: 100%; line-height: 100%; }
-td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
-td.sourceCode { padding-left: 5px; }
-code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code > span.dt { color: #902000; } /* DataType */
-code > span.dv { color: #40a070; } /* DecVal */
-code > span.bn { color: #40a070; } /* BaseN */
-code > span.fl { color: #40a070; } /* Float */
-code > span.ch { color: #4070a0; } /* Char */
-code > span.st { color: #4070a0; } /* String */
-code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code > span.ot { color: #007020; } /* Other */
-code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code > span.fu { color: #06287e; } /* Function */
-code > span.er { color: #ff0000; font-weight: bold; } /* Error */
-code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-code > span.cn { color: #880000; } /* Constant */
-code > span.sc { color: #4070a0; } /* SpecialChar */
-code > span.vs { color: #4070a0; } /* VerbatimString */
-code > span.ss { color: #bb6688; } /* SpecialString */
-code > span.im { } /* Import */
-code > span.va { color: #19177c; } /* Variable */
-code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code > span.op { color: #666666; } /* Operator */
-code > span.bu { } /* BuiltIn */
-code > span.ex { } /* Extension */
-code > span.pp { color: #bc7a00; } /* Preprocessor */
-code > span.at { color: #7d9029; } /* Attribute */
-code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+a.sourceLine { display: inline-block; line-height: 1.25; }
+a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
+a.sourceLine:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+a.sourceLine { text-indent: -1em; padding-left: 1em; }
+}
+pre.numberSource a.sourceLine
+  { position: relative; left: -4em; }
+pre.numberSource a.sourceLine::before
+  { content: attr(title);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; pointer-events: all; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {  }
+@media screen {
+a.sourceLine::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -124,7 +149,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">APS 240</a></li>
+<li><a href="./">Basic bio-stats</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Course information and overview</a><ul>
@@ -229,7 +254,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="10.2.1" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#careful-with-those-p-values"><i class="fa fa-check"></i><b>10.2.1</b> Careful with those <em>p</em>-values</a></li>
 <li class="chapter" data-level="10.2.2" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#presenting-p-values"><i class="fa fa-check"></i><b>10.2.2</b> Presenting <em>p</em>-values</a></li>
 </ul></li>
-<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
+<li class="chapter" data-level="10.3" data-path="hypotheses-and-p-values.html"><a href="hypotheses-and-p-values.html#biological-vs.-statistical-significance"><i class="fa fa-check"></i><b>10.3</b> Biological vs. statistical significance</a></li>
 </ul></li>
 <li class="part"><span><b>III Simple Statistics</b></span></li>
 <li class="chapter" data-level="11" data-path="parametric-statistics.html"><a href="parametric-statistics.html"><i class="fa fa-check"></i><b>11</b> Parametric statistics</a><ul>
@@ -519,7 +544,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 </ul></li>
 <li class="chapter" data-level="A.7" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#qu4"><i class="fa fa-check"></i><b>A.7</b> Question 3 -– Frequencies of categorical data</a></li>
 <li class="chapter" data-level="A.8" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#var-cat"><i class="fa fa-check"></i><b>A.8</b> Variables or categories?</a><ul>
-<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
+<li class="chapter" data-level="A.8.1" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#anova-vs.-regression"><i class="fa fa-check"></i><b>A.8.1</b> ANOVA vs. regression</a></li>
 <li class="chapter" data-level="A.8.2" data-path="choosing-models-and-tests.html"><a href="choosing-models-and-tests.html#making-categories-out-of-continuous-measures"><i class="fa fa-check"></i><b>A.8.2</b> Making categories out of continuous measures</a></li>
 </ul></li>
 </ul></li>
@@ -529,18 +554,17 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <li class="chapter" data-level="B.2.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#title"><i class="fa fa-check"></i><b>B.2.1</b> Title</a></li>
 <li class="chapter" data-level="B.2.2" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#abstract-or-summary"><i class="fa fa-check"></i><b>B.2.2</b> Abstract or Summary</a></li>
 <li class="chapter" data-level="B.2.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#introduction-11"><i class="fa fa-check"></i><b>B.2.3</b> Introduction</a></li>
-<li class="chapter" data-level="B.2.4" data-path="index.html"><a href="index.html#methods"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
+<li class="chapter" data-level="B.2.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#methods-1"><i class="fa fa-check"></i><b>B.2.4</b> Methods</a></li>
 <li class="chapter" data-level="B.2.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#results"><i class="fa fa-check"></i><b>B.2.5</b> Results</a></li>
 <li class="chapter" data-level="B.2.6" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#discussion"><i class="fa fa-check"></i><b>B.2.6</b> Discussion</a></li>
 <li class="chapter" data-level="B.2.7" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#acknowledgements"><i class="fa fa-check"></i><b>B.2.7</b> Acknowledgements</a></li>
 <li class="chapter" data-level="B.2.8" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#literature-cited-references"><i class="fa fa-check"></i><b>B.2.8</b> Literature cited / References</a></li>
 <li class="chapter" data-level="B.2.9" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#appendices"><i class="fa fa-check"></i><b>B.2.9</b> Appendices</a></li>
 </ul></li>
-<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a></li>
-<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#approaches-to-writing"><i class="fa fa-check"></i><b>B.4</b>  Approaches to writing</a><ul>
-<li class="chapter" data-level="B.4.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.4.1</b> A last piece of advice…</a></li>
+<li class="chapter" data-level="B.3" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#presenting-species-names"><i class="fa fa-check"></i><b>B.3</b> Presenting species names</a><ul>
+<li class="chapter" data-level="B.3.1" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#a-last-piece-of-advice"><i class="fa fa-check"></i><b>B.3.1</b> A last piece of advice…</a></li>
 </ul></li>
-<li class="chapter" data-level="B.5" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.5</b> Further reading</a></li>
+<li class="chapter" data-level="B.4" data-path="writing-a-scientific-report.html"><a href="writing-a-scientific-report.html#further-reading-1"><i class="fa fa-check"></i><b>B.4</b> Further reading</a></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html"><i class="fa fa-check"></i><b>C</b> One-tailed vs. two-tailed tests</a><ul>
 <li class="chapter" data-level="C.1" data-path="one-tailed-vs-two-tailed-tests.html"><a href="one-tailed-vs-two-tailed-tests.html#introduction-12"><i class="fa fa-check"></i><b>C.1</b> Introduction</a></li>
@@ -562,7 +586,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
       <div class="body-inner">
         <div class="book-header" role="navigation">
           <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">APS 240: Data Analysis and Statistics with R</a>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R</a>
           </h1>
         </div>
 
@@ -582,7 +606,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <h2><span class="header-section-number">24.2</span> Why do we use a paired-sample design?</h2>
 <p>Consider the following. A drug company wishes to test two drugs for their effectiveness in treating a rare illness in which glycolipids are poorly metabolised. An effective drug is one that lowers glycolipid concentrations in patients. The company is only able to find 8 patients willing to cooperate in the early trials of the two drugs. What’s more, the 8 patients vary in their age, sex, body weight, severity of symptoms and other health problems.</p>
 <p>One way to conduct an experiment that evaluates the effect of the new drug is to randomly assign the 8 patients to one or other drug and monitor their performance. However, this kind of design is very unlikely to detect a statistically significant differences between the treatments. This is because it provides very little replication, yet can we expect considerable variability from one person to another in the levels of glycolipid before any treatment is applied. This variability would to lead to a large standard error in the difference between means.</p>
-<p>A solution to this problems is to treat each patient <em>with both drugs in turn</em> and record the glycolipid concentrations in the blood, for each patient, after a period taking each drug. One arrangement would be for four patients to start with drug A and four with drug B, and then after a suitable break from the treatments, they could be swapped over onto the other drug. This would give us eight replicate observations on the effectiveness of each drug and we can determine, for each patient, which drug is more effective.<a href="#fn20" class="footnoteRef" id="fnref20"><sup>20</sup></a></p>
+<p>A solution to this problems is to treat each patient <em>with both drugs in turn</em> and record the glycolipid concentrations in the blood, for each patient, after a period taking each drug. One arrangement would be for four patients to start with drug A and four with drug B, and then after a suitable break from the treatments, they could be swapped over onto the other drug. This would give us eight replicate observations on the effectiveness of each drug and we can determine, for each patient, which drug is more effective.<a href="#fn20" class="footnote-ref" id="fnref20"><sup>20</sup></a></p>
 <p>The experimental design, and one hypothetical outcome, is represented in the diagram below…</p>
 <div class="figure" style="text-align: center"><span id="fig:drug-linked"></span>
 <img src="stats-for-bio_files/figure-html/drug-linked-1.png" alt="Data from glycolipid study, showing paired design. Each patient is denoted by a unique number." width="50%" />
@@ -606,8 +630,8 @@ Figure 24.2: Data from glycolipid study, ignoring paired design.
 <h2><span class="header-section-number">24.3</span> How do you carry out a <em>t</em>-test on paired-samples?</h2>
 <p>It should be clear why a paired-sample design might be useful, but how do we actually construct the right test? The ‘trick’ is to work directly with the differences between pairs of values. In the case of the glycolipid levels illustrated in the first diagram, we noted that there was a greater decrease of glycolipids in 75% of patients using Drug B compared with Drug A.</p>
 <p>If we calculate the actual differences (i.e. subtracted the value for Drug A from the value for Drug B) for each patient we might see something like…</p>
-<pre><code>## -3.9 -4.3 2.5 -4.5 0.5 -3.9 -7.1 -2.6</code></pre>
-<p>Notice that there are only two positive values in this sample of differences, one of which is fairly close to 0. The mean difference is -2.9, i.e. on average, glycolipid levels are lower with Drug B. Another way of stating this observation is that <em>within subjects</em> (patients), the mean difference between drug B and drug A is negative. A paired-sample design focusses on the within-subject (or more generally, within-item) change.</p>
+<pre><code>## -3.9 -4.1 2.5 -4.7 0.5 -3.7 -6.9 -2.4</code></pre>
+<p>Notice that there are only two positive values in this sample of differences, one of which is fairly close to 0. The mean difference is -2.8, i.e. on average, glycolipid levels are lower with Drug B. Another way of stating this observation is that <em>within subjects</em> (patients), the mean difference between drug B and drug A is negative. A paired-sample design focusses on the within-subject (or more generally, within-item) change.</p>
 <p>If, on the other hand, the two drugs had had similar effects then what would we expect to see? We would expect no consistent difference in glycolipid levels between the Drug A and Drug B treatments. Glycolipid levels are unlikely to remain exactly the same over time, but there shouldn’t be any pattern to these changes with respect to the drug treatment: some patients will show increases, some decreases, and some no change at all. The mean of the differences in this case should be somewhere around zero (though sampling variation will ensure it isn’t exactly equal to zero).</p>
 <p>So, to carry out a <em>t</em>-test on paired-sample data we have to: 1) find the mean of the difference of all the pairs and 2) evaluate whether this is significantly different from zero. We already know how to do this! <strong>This is just an application of the one-sample <em>t</em>-test</strong>, where the expected value (i.e. the null hypothesis) is 0. The thing to realise here, is that although we started out with two sets of values, what matters is the sample of differences between pairs and the population we’re interested in a ‘population of differences’.</p>
 <p>When used to analyse paired data in this way, the test is referred to as a paired-sample <em>t</em>-test. This is not wrong, but it important to remember that a paired-sample <em>t</em>-test is just a one-sample <em>t</em>-test applied to the sample of differences between pairs of associated observations. A paired-sample <em>t</em>-test isn’t really a new kind of test. Instead, it is a one-sample <em>t</em>-test applied to <em>a new kind of situation</em>.</p>
@@ -626,35 +650,35 @@ You should work through the example in this section.
 </div>
 <p>Staying with the problem of trials of two drugs for controlling glycolipid levels, the serum glycolipid concentration data from the trial illustrated above are stored in the GLYCOLIPID.CSV file. Download the this file from MOLE and place it in the working directory. Read GLYCOLIPID.CSV into an R data frame, giving it the name <code>glycolipid</code>.</p>
 <p>As always, we should start by looking at the raw data:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">glimpse</span>(glycolipid)</code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1"><span class="kw">glimpse</span>(glycolipid)</a></code></pre></div>
 <pre><code>## Observations: 16
 ## Variables: 4
 ## $ Patient    &lt;int&gt; 1, 2, 3, 4, 5, 6, 7, 8, 1, 2, 3, 4, 5, 6, 7, 8
-## $ Sex        &lt;fctr&gt; Male, Female, Male, Female, Female, Male, Female, ...
-## $ Drug       &lt;fctr&gt; A, A, A, A, A, A, A, A, B, B, B, B, B, B, B, B
+## $ Sex        &lt;fct&gt; Male, Female, Male, Female, Female, Male, Female, F...
+## $ Drug       &lt;fct&gt; A, A, A, A, A, A, A, A, B, B, B, B, B, B, B, B
 ## $ Glycolipid &lt;dbl&gt; 142.9, 140.6, 144.7, 144.0, 142.4, 146.0, 149.1, 15...</code></pre>
 <p>There are four variables in this data set: <code>Patient</code> indexes the patient identity, <code>Sex</code> is the sex of the patient (we don’t need this), <code>Drug</code> denotes the drug treatment, and <code>Glycolipid</code> is the glycolipid level.</p>
 <p>Next, we need to calculate the differences between each pair. We can do this with the <code>dplyr</code> functions <code>group_by</code> and <code>summarise</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolipid_diffs &lt;-<span class="st"> </span>
-<span class="st">  </span>glycolipid <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">group_by</span>(Patient) <span class="op">%&gt;%</span>
-<span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Difference =</span> <span class="kw">diff</span>(Glycolipid))</code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1">glycolipid_diffs &lt;-<span class="st"> </span></a>
+<a class="sourceLine" id="cb160-2" title="2"><span class="st">  </span>glycolipid <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb160-3" title="3"><span class="st">  </span><span class="kw">group_by</span>(Patient) <span class="op">%&gt;%</span></a>
+<a class="sourceLine" id="cb160-4" title="4"><span class="st">  </span><span class="kw">summarise</span>(<span class="dt">Difference =</span> <span class="kw">diff</span>(Glycolipid))</a></code></pre></div>
 <p>What we did was group the data by the values of <code>Patient</code>, and then used a function called <code>diff</code> to calculate the difference between the two Glycolipid concentrations <em>within each patient</em>. We stored the result of this calculation in a new data frame called <code>glycolipid_diffs</code>. This is the data we’ll use to carry out the paired-sample <em>t</em>-test:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">glycolipid_diffs</code></pre></div>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb161-1" title="1">glycolipid_diffs</a></code></pre></div>
 <pre><code>## # A tibble: 8 x 2
 ##   Patient Difference
 ##     &lt;int&gt;      &lt;dbl&gt;
-## 1       1       -3.8
-## 2       2       -4.2
-## 3       3        2.6
-## 4       4       -4.6
-## 5       5        0.6
-## 6       6       -3.8
-## 7       7       -7.0
-## 8       8       -2.5</code></pre>
+## 1       1     -3.8  
+## 2       2     -4.20 
+## 3       3      2.6  
+## 4       4     -4.60 
+## 5       5      0.600
+## 6       6     -3.8  
+## 7       7     -7    
+## 8       8     -2.5</code></pre>
 <p>We should try to check that the differences could plausibly have been drawn from a normal distribution, though normality is quite hard to assess with only 8 observations:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">ggplot</span>(glycolipid_diffs, <span class="kw">aes</span>(<span class="dt">x =</span> Difference)) <span class="op">+</span>
-<span class="st">  </span><span class="kw">geom_dotplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_grey</span>(<span class="dt">base_size =</span> <span class="dv">22</span>)</code></pre></div>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb163-1" title="1"><span class="kw">ggplot</span>(glycolipid_diffs, <span class="kw">aes</span>(<span class="dt">x =</span> Difference)) <span class="op">+</span></a>
+<a class="sourceLine" id="cb163-2" title="2"><span class="st">  </span><span class="kw">geom_dotplot</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_grey</span>(<span class="dt">base_size =</span> <span class="dv">22</span>)</a></code></pre></div>
 <pre><code>## `stat_bindot()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
 <div class="figure" style="text-align: center"><span id="fig:glyco-diffs"></span>
 <img src="stats-for-bio_files/figure-html/glyco-diffs-1.png" alt="Within-individual differences from glycolipid study" width="50%" />
@@ -663,7 +687,7 @@ Figure 24.3: Within-individual differences from glycolipid study
 </p>
 </div>
 <p>The data seems roughly normal, so let’s carry out a one-sample <em>t</em>-test on the calculated differences. This is test is easy to do in R:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(glycolipid_diffs<span class="op">$</span>Difference)</code></pre></div>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb165-1" title="1"><span class="kw">t.test</span>(glycolipid_diffs<span class="op">$</span>Difference)</a></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -689,7 +713,7 @@ Figure 24.3: Within-individual differences from glycolipid study
 <div id="using-the-paired-true-argument" class="section level3">
 <h3><span class="header-section-number">24.4.1</span> Using the <code>paired = TRUE</code> argument</h3>
 <p>R does have a built in procedure for doing paired-sample <em>t</em>-tests. Now that we’ve done it the hard way, let’s try carrying out the test using the built in procedure. This looks very similar to a two-sample <em>t</em>-test, except that we have to set the <code>paired</code> argument of the <code>t.test</code> function to <code>TRUE</code>:</p>
-<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">t.test</span>(Glycolipid <span class="op">~</span><span class="st"> </span>Drug, <span class="dt">data =</span> glycolipid, <span class="dt">paired =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb167-1" title="1"><span class="kw">t.test</span>(Glycolipid <span class="op">~</span><span class="st"> </span>Drug, <span class="dt">data =</span> glycolipid, <span class="dt">paired =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <pre><code>## 
 ##  Paired t-test
 ## 
@@ -718,7 +742,7 @@ Be careful when using the built in procedure for doing paired-sample <em>t</em>-
 <div class="footnotes">
 <hr />
 <ol start="20">
-<li id="fn20"><p>This kind of experimental design is called a cross-over study. It can be problematic if, for example, “carry-over” effects occur, e.g., the effect of one drug is altered when the other drug has previously been administered. We won’t worry about these problems here though.<a href="paired-sample-t-test.html#fnref20">↩</a></p></li>
+<li id="fn20"><p>This kind of experimental design is called a cross-over study. It can be problematic if, for example, “carry-over” effects occur, e.g., the effect of one drug is altered when the other drug has previously been administered. We won’t worry about these problems here though.<a href="paired-sample-t-test.html#fnref20" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
             </section>
@@ -745,10 +769,11 @@ gitbook.start({
 "facebook": true,
 "twitter": true,
 "google": false,
+"linkedin": false,
 "weibo": false,
-"instapper": false,
+"instapaper": false,
 "vk": false,
-"all": ["facebook", "google", "twitter", "weibo", "instapaper"]
+"all": ["facebook", "google", "twitter", "linkedin", "weibo", "instapaper"]
 },
 "fontsettings": {
 "theme": "white",
@@ -758,6 +783,10 @@ gitbook.start({
 "edit": {
 "link": "https://github.com/dzchilds/stats-for-bio/edit/master/6_02_t-tests_paired_sample.Rmd",
 "text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
 },
 "download": null,
 "toc": {
@@ -773,9 +802,11 @@ gitbook.start({
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
-    script.src  = "https://cdn.bootcss.com/mathjax/2.7.1/MathJax.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:" && /^https?:/.test(script.src))
-      script.src  = script.src.replace(/^https?:/, '');
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:" && /^https?:/.test(src))
+      src = src.replace(/^https?:/, '');
+    script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
 </script>

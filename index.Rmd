@@ -1,6 +1,6 @@
 --- 
-title: "APS 240: Data Analysis and Statistics with R"
-author: "Dylan Z. Childs"
+title: "Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R"
+author: "Dylan Z. Childs; Anthony Davidson"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
 output:
@@ -18,8 +18,6 @@ description: "Course book for Data Analysis and Statistics with R (APS 240) in t
 # Course information and overview
 
 This is the online course book for the __Data Analysis and Statistics with R__ ([APS 240](https://www.shef.ac.uk/aps/currentug/level2/aps240)) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year.
-
-Bethan Hindle is running the course. Please [email her](mailto:b.hindle@sheffield.ac.uk?Subject=APS%20133%20general%20query) if you have any general queries about the course. 
 
 ## Why do a data analysis course? {#why-data-analysis}
 
