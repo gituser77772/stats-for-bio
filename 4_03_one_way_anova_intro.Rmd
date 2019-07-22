@@ -6,7 +6,9 @@ The two-sample *t*-tests evaluate whether or not the mean of a numeric variable 
 
 In this chapter we will introduce an alternative method that allows us to assess the statistical significance of differences among several means at the same time. This method is called **Analysis of Variance** (abbreviated to ANOVA). ANOVA is one of those statistical terms that unfortunately has two slightly different meanings:
 
-1.  In its most general sense ANOVA refers to a methodology for evaluating statistical significance. It appears when working with a statistical model known as the 'general linear model'. Simple linear regression is a special case of the general linear model. Essentially, whenever we see an *F*-ratio in a statistical test we're carrying out an Analysis of Variance of some kind. We saw this crop up when we tested the significance of the regression slope.
+1.  In its most general sense ANOVA refers to a methodology for evaluating statistical significance. It appears when working with a statistical model known as the 'general linear model'. 
+
+{Note}: Simple linear regression is a special case of the general linear model. Essentially, whenever we see an *F*-ratio in a statistical test we're carrying out an Analysis of Variance of some kind. We saw this crop up when we tested the significance of the regression slope.
 
 2.  In its more narrow sense the term ANOVA is used to describe a particular type of statistical model. When used like this ANOVA refers to models that compare means among two or more groups (ANOVA models are also examples of general linear models). The ANOVA-as-a-model is the focus of this chapter. 
 
@@ -135,10 +137,12 @@ ggplot(data = plt.data.wg, aes(x = SuppNum)) +
 ```
 
 The vertical lines show something new this time. They display the distance between each observation and the group-specific means, which means they summarise the variation among hatchlings *within* treatment groups. Here are the numeric values of these deviations:
+
 ```{r, echo=FALSE}
 (within.devs <- plt.data.wg$WeightGain - plt.data.wg$Mean)
 SS.Wth <- sum(within.devs^2)
 ```
+
 These values are a type of residual: they quantify the variation that is 'left over' after accounting for differences due to treatment groups. Once again, we can summarise this variability as a single number by calculating the associated sum of squares, calculated by taking each deviation in turn, squaring it, and adding up the squared values. The sum of squares of these numbers is (`r round(SS.Wth, 2)`). This is called the residual sum of squares^[You will sometimes see something called error sum of squares, or possibly, the within-group sum of squares. These are just different names for the residual sum of squares.]. It is a measure of the variability that may be attributed to differences among individuals after controlling for the effect of different groups. 
 
 #### Between-group variation {-}
@@ -155,10 +159,12 @@ ggplot(data = sim1$wloss.stat, aes(x = Supplement)) +
 ```
 
 Now the vertical lines show the distance between each group-specific mean and the grand mean. We have five different treatment groups, so there are only five lines. These lines show the variation due to differences among treatment groups. Here are the numeric values of these deviations:
+
 ```{r, echo=FALSE}
 (treat.devs <- sim1$wloss.stats$Mean-mean(sim1$wloss.data$WeightGain))
 SS.Trt <- sum(treat.devs^2)
 ```
+
 These values quantify the variation that can be attributed to differences among treatments. Once again, we can summarise this variability as a single number by calculating the associated sum of squares---this number is called the treatment sum of squares. This is the same as the 'explained sum of squares' discussed in the context of regression. It is a measure of the variability attributed to differences among treatments. 
 
 This is `r round(SS.Trt, 2)` in the corn crake example. Notice that this is much smaller than the total sum of squares and the residual sum of squares. This isn't all that surprising as it is based on five numbers, whereas the other two measures of variability are based on all the observations. 
@@ -225,9 +231,13 @@ We have been discussing ANOVA in the context of a designed experiment (i.e. we t
 
 ### Do we need equal replication?
 
-So far we have only considered the use of ANOVA with data in which each treatment has equal replication. One of the frequent problems with biological data is we often don’t have equal replication, even if we started with equal replication in our design. Plants and animals have a habit of dying before we have gathered all our data; a pot may get dropped, a culture contaminated, all sorts of things conspire to upset even the best designed experiments. Fortunately one-way ANOVA does not require equal replication, it will work even where sample sizes differ between treatments.
+So far we have only considered the use of ANOVA with data in which each treatment has equal replication. One of the frequent problems with biological data is we often don’t have equal replication, even if we started with equal replication in our design. Plants and animals have a habit of dying before we have gathered all our data; a pot may get dropped, a culture contaminated, all sorts of things conspire to upset even the best designed experiments. 
+
+{Note}: Fortunately one-way ANOVA does not require equal replication, it will work even where sample sizes differ between treatments.
 
 ### Can ANOVA be done with only two treatments?
 
-Although the *t*-test provides a convenient way of testing means from two treatments, there is nothing to stop you doing an ANOVA on two treatments. A *t*-test (assuming equal variances) and ANOVA on the same data should give the same *p*-value (in fact the *F*-statistic from the ANOVA will be the square of the *t*-value from the *t*-test). One advantage to the *t*-test, however, is that you can do the version of the test that allows for unequal variances---something a standard ANOVA does not do. There is a version of Welch's test for one-way ANOVA, but we won't study it in this course (look at the `oneway.test` function if you are interested).
+Although the *t*-test provides a convenient way of testing means from *two* treatments, there is nothing to stop you doing an ANOVA on *two* treatments. A *t*-test (assuming equal variances) and ANOVA on the same data should give the same *p*-value (in fact the *F*-statistic from the ANOVA will be the square of the *t*-value from the *t*-test). 
+
+{Note}: One advantage to the *t*-test, however, is that you can do the version of the test that allows for unequal variances---something a standard ANOVA does not do. There is a version of *Welch's test* for one-way ANOVA, but we won't study it in this course (look at the `oneway.test` function if you are interested).
 
