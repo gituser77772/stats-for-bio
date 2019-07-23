@@ -24,7 +24,7 @@
 <meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2019-07-17" />
+<meta name="date" content="2019-07-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -693,39 +693,39 @@ That said, saying or writing ‘using information in the sample to compare popul
 </ol>
 <p>This scheme is called a permutation test, because it involves random permutation of the group labels. Why is this useful? <em>Each unique random permutation yields an observation from the null distribution of the difference among sample means, under the assumption that this difference is really zero in the population.</em> We can use this to assess whether or not the observed difference is consistent with the hypothesis of no difference, by looking at where it lies relative to this distribution.</p>
 <p>We can easily implement a permutation test in R. We won’t show the code because it uses quite a few tricks that won’t be needed again. It’s worth having a quick look at the permuted samples. The first 50 values from two permuted samples are:</p>
-<pre><code>##     Green    Purple    Purple     Green     Green    Purple     Green 
+<pre><code>##    Purple     Green     Green    Purple     Green     Green     Green 
 ##  714.3592  693.4924  556.2063  653.6619  672.5207  661.0097  445.1001 
-##    Purple     Green     Green     Green     Green    Purple    Purple 
+##     Green    Purple     Green    Purple     Green    Purple    Purple 
 ##  481.5068  647.6679  858.4820  567.4104  597.1629  718.7132  539.8551 
-##     Green     Green    Purple    Purple     Green     Green     Green 
+##     Green     Green    Purple     Green     Green     Green     Green 
 ##  753.0170  807.7700 1085.7036  926.4972  617.1209  632.5897  859.7013 
-##     Green     Green     Green     Green     Green    Purple     Green 
-##  815.4634  666.7693  573.5907  694.2877  836.6883  665.8489  617.7895 
-##    Purple    Purple     Green     Green     Green     Green     Green 
-##  590.5936  775.8980  686.6790  813.4272  506.3904  566.9971  629.5894 
 ##    Purple     Green     Green     Green    Purple     Green     Green 
-##  878.2477  823.1128  542.7877  507.7345  786.2809  912.5058  853.5730 
-##     Green    Purple    Purple    Purple     Green     Green    Purple 
-##  485.2197  879.7922  852.4711  516.7459  534.4548  702.1948  977.8877 
-##     Green 
-##  653.5126</code></pre>
-<pre><code>##    Purple     Green     Green     Green     Green     Green    Purple 
-##  714.3592  693.4924  556.2063  653.6619  672.5207  661.0097  445.1001 
-##    Purple    Purple     Green     Green    Purple    Purple     Green 
-##  481.5068  647.6679  858.4820  567.4104  597.1629  718.7132  539.8551 
-##    Purple     Green    Purple     Green     Green     Green    Purple 
-##  753.0170  807.7700 1085.7036  926.4972  617.1209  632.5897  859.7013 
-##    Purple     Green    Purple    Purple     Green     Green    Purple 
 ##  815.4634  666.7693  573.5907  694.2877  836.6883  665.8489  617.7895 
-##     Green     Green     Green     Green    Purple     Green     Green 
+##     Green     Green    Purple     Green     Green     Green    Purple 
 ##  590.5936  775.8980  686.6790  813.4272  506.3904  566.9971  629.5894 
-##     Green    Purple     Green     Green    Purple     Green     Green 
+##    Purple     Green     Green     Green    Purple     Green    Purple 
 ##  878.2477  823.1128  542.7877  507.7345  786.2809  912.5058  853.5730 
-##    Purple     Green     Green    Purple     Green     Green     Green 
+##    Purple     Green     Green    Purple     Green    Purple     Green 
 ##  485.2197  879.7922  852.4711  516.7459  534.4548  702.1948  977.8877 
 ##     Green 
 ##  653.5126</code></pre>
-<p>The data from each permutation are stored as numeric vectors, where each element of the vector is named according to the morph type it corresponds to (these are the labels we referred to above). The set of numbers doesn’t vary among permuted samples. The only difference between them is the labelling. The difference between the mean dry weights in the first permutation is 4.0700017, while in the second sample, the difference is -19.9656492.</p>
+<pre><code>##    Purple    Purple     Green     Green    Purple     Green     Green 
+##  714.3592  693.4924  556.2063  653.6619  672.5207  661.0097  445.1001 
+##     Green    Purple     Green     Green     Green     Green    Purple 
+##  481.5068  647.6679  858.4820  567.4104  597.1629  718.7132  539.8551 
+##    Purple    Purple    Purple     Green     Green    Purple     Green 
+##  753.0170  807.7700 1085.7036  926.4972  617.1209  632.5897  859.7013 
+##    Purple     Green    Purple     Green     Green     Green     Green 
+##  815.4634  666.7693  573.5907  694.2877  836.6883  665.8489  617.7895 
+##     Green     Green     Green     Green     Green    Purple     Green 
+##  590.5936  775.8980  686.6790  813.4272  506.3904  566.9971  629.5894 
+##     Green     Green     Green     Green     Green     Green     Green 
+##  878.2477  823.1128  542.7877  507.7345  786.2809  912.5058  853.5730 
+##     Green     Green     Green     Green     Green     Green     Green 
+##  485.2197  879.7922  852.4711  516.7459  534.4548  702.1948  977.8877 
+##     Green 
+##  653.5126</code></pre>
+<p>The data from each permutation are stored as numeric vectors, where each element of the vector is named according to the morph type it corresponds to (these are the labels we referred to above). The set of numbers doesn’t vary among permuted samples. The only difference between them is the labelling. The difference between the mean dry weights in the first permutation is 7.6698902, while in the second sample, the difference is 23.8737542.</p>
 <p>What really matters here is the distribution of these differences over the complete set of permutations. This is our approximation to the sampling distribution of the difference between means under the null hypothesis, i.e. it’s our null distribution. Here is a histogram that summarises the 2500 mean differences from the permuted samples:</p>
 <div class="figure" style="text-align: center"><span id="fig:permute-dist"></span>
 <img src="stats-for-bio_files/figure-html/permute-dist-1.png" alt="Difference between means of permuted samples" width="80%" />
@@ -735,9 +735,9 @@ Figure 9.2: Difference between means of permuted samples
 </div>
 <p>Notice that the distribution is centred at zero. This makes sense. If we take a set of numbers and randomly allocate them to groups, on average, we expect the difference between the mean of these groups to be zero.</p>
 <p>The red line shows the estimated value of the difference between the mean purple and green morph dry weights <em>in the real sample</em>. This is our test statistic. The key thing to pay attention to here is the location of this value within the null distribution. It looks like the estimated difference would be very unlikely to have arisen through sampling variation if the population means of the two groups were identical. We can say this because the estimated difference lies at the end of one ‘tail’ of the null distribution.</p>
-<p>We can use the null distribution to quantify the probability of seeing the observed difference under the null hypothesis. Only 10 out of the 2500 permutations ended up being equal to, or ‘more extreme’ (more positive) than, the observed difference. The probability of finding a difference in the means equal to, or more positive than, the observed difference is therefore, <em>p</em> = 0.004. This is the <em>p</em>-value associated with our significance test.</p>
+<p>We can use the null distribution to quantify the probability of seeing the observed difference under the null hypothesis. Only 4 out of the 2500 permutations ended up being equal to, or ‘more extreme’ (more positive) than, the observed difference. The probability of finding a difference in the means equal to, or more positive than, the observed difference is therefore, <em>p</em> = 0.0016. This is the <em>p</em>-value associated with our significance test.</p>
 <p>Let’s run through the interpretation of that <em>p</em>-value. Here’s the general chain of logic again… The <em>p</em>-value is the probability of obtaining a test statistic (i.e. the difference between means) equal to, or ‘more extreme’ than, the estimated value, assuming the null hypothesis is true. The null hypothesis is one of no effect (i.e. the difference is 0), so a low <em>p</em>-value can be interpreted as evidence for the effect being present. How low does the <em>p</em>-value have to be before we decide we have ‘enough evidence’? A significance threshold of <em>p</em> &lt; 0.05 is conventionally used in biology. If we find <em>p</em> &lt; 0.05, then we conclude that we found a statistically significant effect.</p>
-<p>Here’s how this logic applies to our example… The permutation test assumed there was no difference between the purple and green morphs, so the low <em>p</em>-value indicates that the estimated difference between the mean dry weight of purple and green morphs was unlikely to have occurred by chance, <em>if</em> there is really no difference at the population level. This means we should interpret the low <em>p</em>-value as evidence for the existence of a difference in mean dry weight among the populations of purple and green morphs. Since <em>p</em> = 0.004, we say we found a statistically significant difference at the 5% level.</p>
+<p>Here’s how this logic applies to our example… The permutation test assumed there was no difference between the purple and green morphs, so the low <em>p</em>-value indicates that the estimated difference between the mean dry weight of purple and green morphs was unlikely to have occurred by chance, <em>if</em> there is really no difference at the population level. This means we should interpret the low <em>p</em>-value as evidence for the existence of a difference in mean dry weight among the populations of purple and green morphs. Since <em>p</em> = 0.0016, we say we found a statistically significant difference at the 5% level.</p>
 <div class="advanced-box">
 <p>
 <strong>Directional tests</strong>
@@ -804,7 +804,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/stats-for-bio/edit/master/2_03_comparisons_p-values.Rmd",
+"link": "https://github.com/davan690/stats-for-bio/edit/master/2_03_comparisons_p-values.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -24,7 +24,7 @@
 <meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2019-07-17" />
+<meta name="date" content="2019-07-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -600,7 +600,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Once we have pinned down the uncertainty we can start to provide meaningful answers to our scientific questions. We will arrive at this ‘getting to the answer step’ in the next chapter. First we have to develop the uncertainty idea a bit more by considering things such as sampling error, sampling distributions and standard errors.</p>
 <div id="sampling-error-1" class="section level2">
 <h2><span class="header-section-number">7.1</span> Sampling error</h2>
-<p>Let’s continue with the plant polymorphism example from the previous chapter. So far, we had taken one sample of 20 plants from our hypothetical population and found that the frequency of purple plants in that sample was 40%. This is a point estimate of purple plant frequency based on a random sample of 20 plants.</p>
+<p>Let’s continue with the plant polymorphism example from the previous chapter. So far, we had taken one sample of 20 plants from our hypothetical population and found that the frequency of purple plants in that sample was 35%. This is a point estimate of purple plant frequency based on a random sample of 20 plants.</p>
 <p>What happens if we repeat the same process, leading to a new, completely independent sample? Here’s a reminder of what the population looked like, along with a new sample highlighted with red circles:</p>
 <div class="figure" style="text-align: center"><span id="fig:plants-samp2"></span>
 <img src="stats-for-bio_files/figure-html/plants-samp2-1.png" alt="Plants sampled on the second occasion" width="50%" />
@@ -608,7 +608,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 Figure 7.1: Plants sampled on the second occasion
 </p>
 </div>
-<p>This time we ended up sampling 11 green plants and 9 purple plants, so our second estimate of the purple morph frequency is 45%. This is quite different from the first estimate. Notice that it is actually lower than that seen in the original study population. The hypothesis that the purple morph is more prevalent in the new study population is beginning to look a little shaky.</p>
+<p>This time we ended up sampling 16 green plants and 4 purple plants, so our second estimate of the purple morph frequency is 20%. This is quite different from the first estimate. Notice that it is actually lower than that seen in the original study population. The hypothesis that the purple morph is more prevalent in the new study population is beginning to look a little shaky.</p>
 <p>Nothing about the study population changed between the first and second sample. What’s more, we used a completely reliable sampling scheme to generate these samples (trust us on that one). There was nothing biased or ‘incorrect’ about the way individuals were sampled—every individual had the same chance of being selected. The two different estimates of the purple morph frequency simply arise from chance variation in the selection process. This variation, which arises whenever we observe a sample instead of the whole population, has a special name. It is called the <strong>sampling error</strong>.</p>
 <p>(Another name for sampling error is ‘sampling variation’. We’ll use both terms—‘sampling error’ and ‘sampling variation’—in this book because they are both widely used.)</p>
 <p>Sampling error is the reason why we have to use statistics. Any estimate derived from a sample is affected by it. Sampling error is not really a property of any particular sample. The form of sampling error in any given problem is a consequence of the population distribution of the variables we’re studying, and the sampling method used to investigate the population. Let’s try to understand what all this means.</p>
@@ -673,14 +673,14 @@ Figure 7.5: Distribution of number of purple morphs sampled (n = 500)
 <a class="sourceLine" id="cb6-2" title="2">percent_samples &lt;-<span class="st"> </span><span class="dv">100</span> <span class="op">*</span><span class="st"> </span>raw_samples <span class="op">/</span><span class="st"> </span>sample_size</a></code></pre></div>
 <p>The details of the R code are not important here (a minimum of A-level statistics is needed to understand what the <code>rbinom</code> function is doing). We’re only showing the code to demonstrate that seemingly complex simulations are often easy to do in R.</p>
 <p>The result is what matters. We simulated the percentage of purple morph individuals found in 100000 samples of 80 individuals, assuming the purple morph frequency is always 40%. The results are now stored the result in a vector called <code>percent_samples</code>. Here are its first 50 values:</p>
-<pre><code>##  [1] 33.75 35.00 42.50 41.25 46.25 35.00 42.50 45.00 43.75 40.00 41.25
-## [12] 52.50 43.75 38.75 38.75 47.50 42.50 40.00 43.75 42.50 36.25 42.50
-## [23] 43.75 43.75 35.00 42.50 35.00 37.50 41.25 40.00 45.00 40.00 41.25
-## [34] 38.75 46.25 45.00 31.25 40.00 47.50 42.50 37.50 41.25 31.25 45.00
-## [45] 32.50 36.25 40.00 37.50 40.00 45.00</code></pre>
+<pre><code>##  [1] 42.50 37.50 36.25 30.00 35.00 35.00 51.25 35.00 41.25 36.25 32.50
+## [12] 37.50 32.50 38.75 37.50 36.25 33.75 35.00 42.50 41.25 46.25 35.00
+## [23] 42.50 45.00 43.75 40.00 41.25 52.50 43.75 38.75 38.75 47.50 42.50
+## [34] 40.00 43.75 42.50 36.25 42.50 43.75 43.75 35.00 42.50 35.00 37.50
+## [45] 41.25 40.00 45.00 40.00 41.25 38.75</code></pre>
 <p>These numbers are all part of the sampling distribution of morph frequency estimates. How to calculate the standard error? This is defined as the standard deviation of these numbers, which we can get with the <code>sd</code> function:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1"><span class="kw">sd</span>(percent_samples)</a></code></pre></div>
-<pre><code>## [1] 5.494663</code></pre>
+<pre><code>## [1] 5.494687</code></pre>
 <p>Why is this useful? The standard error gives us a means to compare the variability we expect to see in different sampling distributions. When a sampling distribution is ‘well-behaved’, then roughly speaking, about 95% of estimates are expected to lie within a range of about four standard errors. Look at the second bar plot we produced, where the sample size was 80 and the purple morph frequency was 40%. What is the approximate range of simulated values? How close is this to <span class="math inline">\(4 \times 5.5\)</span>? Those numbers are quite close.</p>
 <p>In summary, the standard error gives us a way to quantify how much variability we expect to see in a sampling distribution. We said in the previous chapter (<a href="learning-from-data.html#learning-from-data">Learning from data</a>) that a point estimate is useless without some kind of associated measure of uncertainty. A standard error is one such measure.</p>
 </div>
@@ -731,7 +731,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/stats-for-bio/edit/master/2_01_standard_error.Rmd",
+"link": "https://github.com/davan690/stats-for-bio/edit/master/2_01_standard_error.Rmd",
 "text": "Edit"
 },
 "history": {

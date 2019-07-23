@@ -24,7 +24,7 @@
 <meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2019-07-17" />
+<meta name="date" content="2019-07-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -677,16 +677,16 @@ The best way to understand what follows is to actually work through the example.
 <a class="sourceLine" id="cb19-2" title="2">samp &lt;-<span class="st"> </span><span class="kw">sample</span>(plant_morphs, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb19-3" title="3"><span class="co"># show the first 100 values of the bootstrapped sample</span></a>
 <a class="sourceLine" id="cb19-4" title="4"><span class="kw">head</span>(samp, <span class="dv">100</span>) </a></code></pre></div>
-<pre><code>##   [1] Green  Purple Purple Green  Green  Purple Green  Purple Green  Green 
-##  [11] Green  Green  Purple Purple Green  Green  Purple Purple Green  Green 
-##  [21] Green  Green  Green  Green  Green  Green  Purple Purple Purple Purple
-##  [31] Green  Green  Green  Purple Green  Green  Purple Green  Purple Green 
-##  [41] Green  Green  Purple Purple Green  Purple Green  Purple Purple Purple
-##  [51] Green  Green  Purple Green  Green  Purple Green  Green  Green  Purple
-##  [61] Green  Green  Green  Green  Green  Green  Green  Green  Green  Green 
-##  [71] Purple Purple Green  Purple Green  Green  Green  Green  Green  Purple
-##  [81] Purple Green  Green  Green  Purple Purple Green  Purple Green  Purple
-##  [91] Purple Green  Green  Purple Purple Green  Green  Green  Green  Green 
+<pre><code>##   [1] Purple Green  Green  Green  Purple Green  Green  Green  Purple Purple
+##  [11] Green  Purple Green  Green  Green  Green  Purple Green  Green  Green 
+##  [21] Green  Green  Green  Purple Green  Purple Green  Green  Green  Green 
+##  [31] Green  Purple Purple Purple Green  Green  Green  Green  Green  Green 
+##  [41] Green  Green  Purple Green  Green  Green  Purple Green  Green  Green 
+##  [51] Green  Green  Green  Green  Green  Green  Purple Green  Green  Purple
+##  [61] Purple Green  Green  Green  Green  Purple Purple Green  Green  Purple
+##  [71] Green  Green  Green  Green  Purple Green  Green  Purple Green  Purple
+##  [81] Green  Purple Green  Green  Green  Green  Green  Green  Green  Green 
+##  [91] Green  Purple Green  Green  Green  Green  Green  Green  Purple Green 
 ## Levels: Green Purple</code></pre>
 <p>The <code>replace = TRUE</code> ensures that we sample with replacement—this is the ‘putting the bits of paper back in the hat’ part of the process.</p>
 <p>The <code>samp</code> variable now contains a random sample of the values in the true sample. We only need one number from this sample—the frequency of purple morphs:</p>
@@ -701,8 +701,8 @@ The best way to understand what follows is to actually work through the example.
 <p>The <code>replicate</code> function replicates an R expression many times and returns the set of results. There’s no need to remember how this works.</p>
 <p>What have we achieved? The <code>boot_out</code> vector now contains a bootstrapped sample of frequency estimates. Let’s take a quick look at the first 25 values rounded to 2 decimal places:</p>
 <div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1"><span class="kw">head</span>(boot_out, <span class="dv">25</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">round</span>(<span class="dv">1</span>)</a></code></pre></div>
-<pre><code>##  [1] 31.6 23.6 27.6 28.4 32.0 28.0 34.0 28.0 32.8 33.2 34.0 25.2 34.0 30.0
-## [15] 28.8 31.6 30.0 30.0 29.2 28.0 31.2 27.6 29.6 30.4 32.8</code></pre>
+<pre><code>##  [1] 26.0 28.0 32.0 26.8 32.8 35.6 31.2 32.4 33.6 30.0 27.6 29.6 30.8 34.0
+## [15] 32.4 38.8 31.6 24.4 31.6 28.4 30.0 32.8 32.4 33.6 32.0</code></pre>
 <p>We used the pipe <code>%&gt;%</code> to make a code a bit more readable—this won’t work unless the <strong>dplyr</strong> package was loaded.</p>
 <p>The numbers in <code>boot_out</code> represent the values of purple morph frequency we can expect to generate if we repeated the data collection exercise many times, under the assumption that the purple morph frequency is equal to that of the actual sample. This is a bootstrapped sampling distribution. We can use this bootstrapped sampling distribution in a number of ways.</p>
 <p>Let’s plot it first get a sense of what it looks like. A histogram is a good choice here because we have a reasonably large number of cases:</p>
@@ -756,9 +756,9 @@ Figure 8.2: Sampling distribution of purple morph frequency under the null hypot
 <p>We need to be able to make a more precise statement than this though. We need to quantify how often the values of the bootstrapped null distribution are greater than the value we estimated from the sample. This is easy to do in R:</p>
 <div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">p_value &lt;-<span class="st"> </span><span class="kw">sum</span>(null_dist <span class="op">&gt;</span><span class="st"> </span>mean_point_est) <span class="op">/</span><span class="st"> </span>n_samp</a>
 <a class="sourceLine" id="cb30-2" title="2">p_value</a></code></pre></div>
-<pre><code>## [1] 0.0238</code></pre>
+<pre><code>## [1] 0.0265</code></pre>
 <p>This number (generally denoted ‘<em>p</em>’) is called a <strong><em>p</em>-value</strong>.</p>
-<p>What are we supposed to do with the finding <em>p</em> = 0.0238? This is the probability of obtaining a result equal to, or ‘more extreme’, than that which was actually observed, <em>assuming that the hypothesis under consideration (the null hypothesis) is true</em>. The null hypothesis is one of no effect (or no difference), and so a low <em>p</em>-value can be interpreted as evidence for an effect being present. It’s worth reading that a few times…</p>
+<p>What are we supposed to do with the finding <em>p</em> = 0.0265? This is the probability of obtaining a result equal to, or ‘more extreme’, than that which was actually observed, <em>assuming that the hypothesis under consideration (the null hypothesis) is true</em>. The null hypothesis is one of no effect (or no difference), and so a low <em>p</em>-value can be interpreted as evidence for an effect being present. It’s worth reading that a few times…</p>
 <p>In our example, it appears that the purple morph frequency we observed is fairly unlikely to occur if its frequency in the new population really was 25%. In biological terms, we take the low <em>p</em>-value as evidence for a difference in purple morph frequency among the populations, i.e. the data supports the prediction that the purple morph is present at a frequency greater than 25% in the new study population.</p>
 <p>One important question remains: How small does a <em>p</em>-value have to be before we are happy to conclude that the effect we’re interested in is probably present? In practice, we do this by applying a threshold, called a <strong>significance level</strong>. If the <em>p</em>-value is less than the chosen significance level we say the result is said to be <strong>statistically significant</strong>. Most often (in biology at least), we use a significance level of <em>p</em> &lt; 0.05 (5%).</p>
 <p>Why do we use a significance level of <em>p</em> &lt; 0.05? The short answer is that this is just a convention. Nothing more. There is nothing special about the 5% threshold, other than the fact that it’s the one most often used. Statistical significance has nothing to do with biological significance. Unfortunately, many people are very uncritical about the use of this arbitrary threshold, to the extent that it can be very hard to publish a scientific study if it doesn’t contain ‘statistically significant’ results.</p>
@@ -814,7 +814,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/stats-for-bio/edit/master/2_02_significance_p-values.Rmd",
+"link": "https://github.com/davan690/stats-for-bio/edit/master/2_02_significance_p-values.Rmd",
 "text": "Edit"
 },
 "history": {

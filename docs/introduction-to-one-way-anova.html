@@ -24,7 +24,7 @@
 <meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2019-07-17" />
+<meta name="date" content="2019-07-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -601,8 +601,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>The two-sample <em>t</em>-tests evaluate whether or not the mean of a numeric variable changes among two groups or experimental conditions, which can be encoded by a categorical variable. We pointed out that we could conceptualise these <em>t</em>-tests as evaluating a relationship between between the numeric and categorical variable. The obvious question is, what happens if we need to evaluate differences among means of more than two groups? The ‘obvious’ thing to do might seem to be to test each pair of means using a <em>t</em>-test. However this procedure is tedious and, most importantly, statistically flawed.</p>
 <p>In this chapter we will introduce an alternative method that allows us to assess the statistical significance of differences among several means at the same time. This method is called <strong>Analysis of Variance</strong> (abbreviated to ANOVA). ANOVA is one of those statistical terms that unfortunately has two slightly different meanings:</p>
 <ol style="list-style-type: decimal">
-<li><p>In its most general sense ANOVA refers to a methodology for evaluating statistical significance. It appears when working with a statistical model known as the ‘general linear model’. Simple linear regression is a special case of the general linear model. Essentially, whenever we see an <em>F</em>-ratio in a statistical test we’re carrying out an Analysis of Variance of some kind. We saw this crop up when we tested the significance of the regression slope.</p></li>
-<li><p>In its more narrow sense the term ANOVA is used to describe a particular type of statistical model. When used like this ANOVA refers to models that compare means among two or more groups (ANOVA models are also examples of general linear models). The ANOVA-as-a-model is the focus of this chapter.</p></li>
+<li>In its most general sense ANOVA refers to a methodology for evaluating statistical significance. It appears when working with a statistical model known as the ‘general linear model’.</li>
+</ol>
+<p>{Note}: Simple linear regression is a special case of the general linear model. Essentially, whenever we see an <em>F</em>-ratio in a statistical test we’re carrying out an Analysis of Variance of some kind. We saw this crop up when we tested the significance of the regression slope.</p>
+<ol start="2" style="list-style-type: decimal">
+<li>In its more narrow sense the term ANOVA is used to describe a particular type of statistical model. When used like this ANOVA refers to models that compare means among two or more groups (ANOVA models are also examples of general linear models). The ANOVA-as-a-model is the focus of this chapter.</li>
 </ol>
 <p>ANOVA models underpin the analysis of many different kinds of experimental data; they are one of the main ‘work horses’ of basic data analysis. As with many statistical models we can use ANOVA without really understanding the details of how it works. However, when it comes to interpreting the results of statistical tests associated with ANOVA, it is important to at least have a basic conceptual understanding of how it works. The goal of this chapter is to provide this basic understanding. We’ll do this by exploring the simplest type of ANOVA model: a one-way Analysis of Variance.</p>
 </div>
@@ -707,11 +710,13 @@ We stated what a mean square represents when discussing regression: it is an est
 </div>
 <div id="do-we-need-equal-replication" class="section level3">
 <h3><span class="header-section-number">17.5.2</span> Do we need equal replication?</h3>
-<p>So far we have only considered the use of ANOVA with data in which each treatment has equal replication. One of the frequent problems with biological data is we often don’t have equal replication, even if we started with equal replication in our design. Plants and animals have a habit of dying before we have gathered all our data; a pot may get dropped, a culture contaminated, all sorts of things conspire to upset even the best designed experiments. Fortunately one-way ANOVA does not require equal replication, it will work even where sample sizes differ between treatments.</p>
+<p>So far we have only considered the use of ANOVA with data in which each treatment has equal replication. One of the frequent problems with biological data is we often don’t have equal replication, even if we started with equal replication in our design. Plants and animals have a habit of dying before we have gathered all our data; a pot may get dropped, a culture contaminated, all sorts of things conspire to upset even the best designed experiments.</p>
+<p>{Note}: Fortunately one-way ANOVA does not require equal replication, it will work even where sample sizes differ between treatments.</p>
 </div>
 <div id="can-anova-be-done-with-only-two-treatments" class="section level3">
 <h3><span class="header-section-number">17.5.3</span> Can ANOVA be done with only two treatments?</h3>
-<p>Although the <em>t</em>-test provides a convenient way of testing means from two treatments, there is nothing to stop you doing an ANOVA on two treatments. A <em>t</em>-test (assuming equal variances) and ANOVA on the same data should give the same <em>p</em>-value (in fact the <em>F</em>-statistic from the ANOVA will be the square of the <em>t</em>-value from the <em>t</em>-test). One advantage to the <em>t</em>-test, however, is that you can do the version of the test that allows for unequal variances—something a standard ANOVA does not do. There is a version of Welch’s test for one-way ANOVA, but we won’t study it in this course (look at the <code>oneway.test</code> function if you are interested).</p>
+<p>Although the <em>t</em>-test provides a convenient way of testing means from <em>two</em> treatments, there is nothing to stop you doing an ANOVA on <em>two</em> treatments. A <em>t</em>-test (assuming equal variances) and ANOVA on the same data should give the same <em>p</em>-value (in fact the <em>F</em>-statistic from the ANOVA will be the square of the <em>t</em>-value from the <em>t</em>-test).</p>
+<p>{Note}: One advantage to the <em>t</em>-test, however, is that you can do the version of the test that allows for unequal variances—something a standard ANOVA does not do. There is a version of <em>Welch’s test</em> for one-way ANOVA, but we won’t study it in this course (look at the <code>oneway.test</code> function if you are interested).</p>
 
 </div>
 </div>
@@ -758,7 +763,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/stats-for-bio/edit/master/4_03_one_way_anova_intro.Rmd",
+"link": "https://github.com/davan690/stats-for-bio/edit/master/4_03_one_way_anova_intro.Rmd",
 "text": "Edit"
 },
 "history": {

@@ -24,7 +24,7 @@
 <meta name="author" content="Dylan Z. Childs; Anthony Davidson" />
 
 
-<meta name="date" content="2019-07-17" />
+<meta name="date" content="2019-07-23" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -630,8 +630,8 @@ Figure 24.2: Data from glycolipid study, ignoring paired design.
 <h2><span class="header-section-number">24.3</span> How do you carry out a <em>t</em>-test on paired-samples?</h2>
 <p>It should be clear why a paired-sample design might be useful, but how do we actually construct the right test? The ‘trick’ is to work directly with the differences between pairs of values. In the case of the glycolipid levels illustrated in the first diagram, we noted that there was a greater decrease of glycolipids in 75% of patients using Drug B compared with Drug A.</p>
 <p>If we calculate the actual differences (i.e. subtracted the value for Drug A from the value for Drug B) for each patient we might see something like…</p>
-<pre><code>## -3.9 -4.1 2.5 -4.7 0.5 -3.7 -6.9 -2.4</code></pre>
-<p>Notice that there are only two positive values in this sample of differences, one of which is fairly close to 0. The mean difference is -2.8, i.e. on average, glycolipid levels are lower with Drug B. Another way of stating this observation is that <em>within subjects</em> (patients), the mean difference between drug B and drug A is negative. A paired-sample design focusses on the within-subject (or more generally, within-item) change.</p>
+<pre><code>## -3.9 -4.3 2.5 -4.5 0.5 -3.9 -7.1 -2.6</code></pre>
+<p>Notice that there are only two positive values in this sample of differences, one of which is fairly close to 0. The mean difference is -2.9, i.e. on average, glycolipid levels are lower with Drug B. Another way of stating this observation is that <em>within subjects</em> (patients), the mean difference between drug B and drug A is negative. A paired-sample design focusses on the within-subject (or more generally, within-item) change.</p>
 <p>If, on the other hand, the two drugs had had similar effects then what would we expect to see? We would expect no consistent difference in glycolipid levels between the Drug A and Drug B treatments. Glycolipid levels are unlikely to remain exactly the same over time, but there shouldn’t be any pattern to these changes with respect to the drug treatment: some patients will show increases, some decreases, and some no change at all. The mean of the differences in this case should be somewhere around zero (though sampling variation will ensure it isn’t exactly equal to zero).</p>
 <p>So, to carry out a <em>t</em>-test on paired-sample data we have to: 1) find the mean of the difference of all the pairs and 2) evaluate whether this is significantly different from zero. We already know how to do this! <strong>This is just an application of the one-sample <em>t</em>-test</strong>, where the expected value (i.e. the null hypothesis) is 0. The thing to realise here, is that although we started out with two sets of values, what matters is the sample of differences between pairs and the population we’re interested in a ‘population of differences’.</p>
 <p>When used to analyse paired data in this way, the test is referred to as a paired-sample <em>t</em>-test. This is not wrong, but it important to remember that a paired-sample <em>t</em>-test is just a one-sample <em>t</em>-test applied to the sample of differences between pairs of associated observations. A paired-sample <em>t</em>-test isn’t really a new kind of test. Instead, it is a one-sample <em>t</em>-test applied to <em>a new kind of situation</em>.</p>
@@ -781,7 +781,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/dzchilds/stats-for-bio/edit/master/6_02_t-tests_paired_sample.Rmd",
+"link": "https://github.com/davan690/stats-for-bio/edit/master/6_02_t-tests_paired_sample.Rmd",
 "text": "Edit"
 },
 "history": {
