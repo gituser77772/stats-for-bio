@@ -1,5 +1,5 @@
 --- 
-title: "Ecological statistics at UC: forked from APS 240-Data Analysis and Statistics with R"
+title: "Ecological statistics: forked from APS 240-Data Analysis and Statistics with R"
 author: "Dylan Z. Childs; Anthony Davidson"
 date: "`r Sys.Date()`"
 site: bookdown::bookdown_site
@@ -15,6 +15,7 @@ github-repo: dzchilds/stats-for-bio
 description: "Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield "
 ---
 
+July 2019: I have been using this for a resource for my PhD work and am slowing adding my notes as I work through it. The full resource can be found at David's site. I have in no way taught this as a class but use it as a resource and a place to keep my notes In the open source framework these notes may help develop a ecology and Statistics course.
 # Course information and overview
 
 This is the online course book for the __Data Analysis and Statistics with R__ ([APS 240](https://www.shef.ac.uk/aps/currentug/level2/aps240)) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year.
