@@ -69,7 +69,3 @@ The normal distribution is usually the first distribution people learn about. Th
 The sampling distribution of this new quantity has a particular form. It follows a Student's *t*-distribution. Student's *t*-distribution arises all the time in relation to means. For example, what happens if we take samples from a pair of normal distributions, calculate the difference between their estimated means, and then divide this difference by its standard error? The sampling distribution of the scaled difference between means also follows a Student's *t*-distribution.
 
 Because it involves rescaling a mean by its standard error, the form of the resulting *t*-distribution only depends on one thing: the sample size. This may not sound like an important result, but it is because it allows us to construct simple statistical tests to evaluate differences between means. We'll use this result in the next two chapters as we learn about so-called '*t*-tests'.
-
-
-
-
