@@ -15,16 +15,19 @@ github-repo: dzchilds/stats-for-bio
 description: "Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield "
 ---
 
-July 2019: I have been using this for a resource for my PhD work and am slowing adding my notes as I work through it. The full resource can be found at David's site. I have in no way taught this as a class but use it as a resource and a place to keep my notes In the open source framework these notes may help develop a ecology and Statistics course.
-# Course information and overview
+**Anthony Davidson:** *December 2019* I have been using this as a resource for my PhD work and other small projects using biological statistics. The orginal resource can be found at David's site [here](). I have not taught this class but use it as a resource and a place to keep my notes In the open source framework these notes may help develop a ecology and Statistics course.
 
-This is the online course book for the __Data Analysis and Statistics with R__ ([APS 240](https://www.shef.ac.uk/aps/currentug/level2/aps240)) module. You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year.
+## Course information and overview
+
+This is the online course book for the __Data Analysis and Statistics with R__ ([APS 240](https://www.shef.ac.uk/aps/currentug/level2/aps240)) module with the extended comments and application from my research and personal projects (Anthony). 
+
+You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained---it contains all the material you are expected to learn this year.
 
 ## Why do a data analysis course? {#why-data-analysis}
 
 To do science yourself, or to understand the science other people do, you need some understanding of the principles of experimental design, data collection, data presentation and data analysis. That doesn’t mean becoming a maths wizard, or a computer genius. It means knowing how to take sensible decisions about designing studies and collecting data, and then being able to interpret those data correctly. Sometimes the methods required are extremely simple, sometimes more complex. You aren’t expected to get to grips with all of them, but what we hope to do in the course is to give you a good practical grasp of the core techniques that are widely used in biology and environmental sciences. You should then be equipped to use these techniques intelligently and, equally importantly, know when they are not appropriate, and when you need to seek help to find the correct way to design or analyse your study.
 
-You should, with some work on your part, acquire a set of skills which you will use at various stages throughout the remainder of your course, in practicals, field courses and in your project work. These same skills will almost certainly also be useful after your degree, whether doing biology, or something completely different. We live in a world that is increasingly flooded with data, and people who know how to make sense of this are in high demand. The R statistical programming environment underpins much of this endeavour, in both academic and commercial settings. Learning the basic principles of data analysis with R will only improve your employment prospects. 
+You should, with some work on your part, acquire a set of skills which you will use at various stages throughout the remainder of your course, in practicals, field courses and in your project work. These same skills will almost certainly also be useful after your degree, whether doing biology, or something completely different. We live in a world that is increasingly flooded with data, and people who know how to make sense of this are in high demand. The R statistical programming environment underpins much of this endeavour, in both academic and commercial settings. Learning the basic principles of data analysis with R will only improve your employment prospects.
 
 ## Course overview {#overview}
 
@@ -56,49 +59,27 @@ Each week starts with some preparatory reading and 'walk-through' practical work
 
 It is up to you to complete the preparatory work in your own time. However, we are not expecting you to understand everything the first time around. This point is so important it's worth saying again---you are not expected to understand everything in the course book the first time you read it. Just do your best to understand it, taking careful notes of anything you're struggling with. The TAs and staff will happily answer any questions you have during the timetabled sessions. Indeed, that is what they're there to do.
 
-#### Timetabled practicals
+#### Timetabled practicals 
 
-The **timetabled practicals** take place in the APS IT rooms, either Perak IT labs or B56. In each of these sessions, you will work through a number of small exercises to help you consolidate what you're been working on. You'll be asked to note down your answers to some of the exercises. The correct answers will be available. TAs and staff are there to help if you get stuck, so don't suffer in silence. You can (should!) also use this time to ask questions about concepts that are confusing you.
-
-You are welcome to use your own computer to complete your work. Keep in mind that the university computers are the only 'officially supported' platform. If you run into a problem using your own computer, the TAs and staff will try to help resolve these. Unfortunately, if these prove to be intractable, you will have to use the university computing facilities. It just isn't fair on other students for teaching staff to spend valuable contact time trying to solve installation / setup problems.
+*not current for this version of the text*
 
 ### Non-assessed material
 
-Although every topic is important, in the sense that it contains material that will help you become a better data analyst, we want to avoid creating too much of an assessment burden in this course. To this end, the material in a few of the chapters is be formally assessed. The [Expected learning outcomes] chapter tells you what you need to be able to know by the end of the course. If you're the kind of person who wants to focus on the assessment, you should use that as your guide. As always, feel free ask an instructor (not a TA) for clarification if you're not sure of what you need to be able to do.
+*not current for this version of the text*
 
 ### What is required of you? {#what-is-required-of-you}
 
-A willingness to learn and to take responsibility for your learning! Data analysis is not the easiest subject in the world, but neither is it the most difficult. It's worth making the effort. What you learn in this course will form the basis for much of what you do in field course, practical and project work that follows in later semesters.
-
-The minimum requirement for the course is that you:
-
--   attend your designated practical session each week (please ensure that you arrive on time and register, or you will be recorded as absent),
-
--   complete the preparatory practical work and reading, taking careful notes of anything that you don't understand,
-
--   be proactive about your lerning and ask the TAs and staff questions about things you're struggling with,
-
--   complete the exercises for each week before the next practical class, and check through your answers to questions using MOLE.
-
-How you work through the book is fairly flexible, but remember, the self-study preparatory work lays the foundatation for the material covered in the timetabled practicals. Take our word for it, you won't get much out of the timetabled sessions if you skip the preparatory work.
-
-In each practical session you should aim to complete most, if not all, of the exercises for that practical. If you don’t manage to do this you should try to finish off the work in your own time before the next practical. However, if you have problems with any of the work, staff will help you during the practical sessions, even if it is not the topic designated for that session. So if you need to catch up, there will be opportunities to do so. 
-
-A word of advice: Don’t let the flexibility of the course tempt you into letting a backlog of work build up. This will compromise your ability to do the assessed work when it is set and will make it difficult to revise for the exam.
-
-One last point: **the university guidelines assume the total study time associated with a 10 credit module to be about 100 hours**. There is an expectation that you will spend significant time outside the timetabled practical classes working on this module. You should aim to spend about 5 hours each week working through the chapters, completing the practical exercises, and finally, working on the assessed project. This leaves you about 40 hours to revise for the formal exam in the new year.
+A willingness to learn and to take responsibility for your learning! Data analysis is not the easiest subject in the world, but neither is it the most difficult. It's worth making the effort. What you learn in this course will form the basis for much of what you do in field course, practical and project work that follows in later.
 
 ### Assessment {#assessment}
 
-Assessment of the course will have two components. The first is a short data analysis project in weeks 11-12 of the course, the second is an open book exam in the winter exam period. 'Open book' means you will have access to this book during the exam, i.e. you don't have to memorise everything in here, just understand it!
-
-Further details will be given as the course progresses.
+*not current for this version of the text*
 
 ## How to use the teaching material {#how-to-use-the-teaching-material}
 
 ### The online course book {#printed-material}
 
-All of the teaching material will be made available through a single online course book (this website). The book is organised such that it forms a complete, stand-alone introduction to data analysis. You should bookmark this now if you haven't already done so. There are a couple of very good reasons for delivering the course material this way: 
+All of the teaching material will be made available through a single online course book (this website). The book is organised such that it forms a complete, stand-alone introduction to data analysis. You should bookmark this now if you haven't already done so. There are a couple of very good reasons for delivering the course material this way:
 
 -   **Practicality**: Most exercises can be completed by building on the examples in the course material. Copying the relevant R code from the course website and pasting it into your script is much more efficient, and less error-prone, than copying by eye from a printed page. A website also allows us to cross-reference topics and link to the odd bit of outside reading.
 
