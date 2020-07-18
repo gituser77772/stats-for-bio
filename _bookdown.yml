@@ -2,3 +2,4 @@ book_filename: "stats-for-bio"
 before_chapter_script: "preamble.R"
 chapter_name: "Chapter "
 output_dir: "docs"
+rmd_files: ["index.Rmd", "0_02_R_prerequisites.Rmd"]

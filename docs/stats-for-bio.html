@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Ecological statistics: forked from APS 240-Data Analysis and Statistics with R</title>
+  <meta name="description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
+  <meta name="generator" content="bookdown 0.20 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Ecological statistics: forked from APS 240-Data Analysis and Statistics with R" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
+  <meta name="github-repo" content="davan690/stats-for-bio" />
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Ecological statistics: forked from APS 240-Data Analysis and Statistics with R" />
+  
+  <meta name="twitter:description" content="Course book for Data Analysis and Statistics with R (APS 240) in the Department of Animal and Plant Sciences, University of Sheffield" />
+  
+
+<meta name="author" content="Dylan Z. Childs; Anthony Davidson; others" />
+
+
+<meta name="date" content="2020-07-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<style type="text/css">
+
+.warning-box {
+  border: 3px solid #e60000;
+  margin:  25px;
+  padding: 10px 10px 5px 10px;
+  border-radius: 6px 6px 6px 6px;
+}
+
+.advanced-box {
+  border: 3px solid #268bd2;
+  margin:  25px;
+  padding: 10px 10px 5px 10px;
+  border-radius: 6px 6px 6px 6px;
+}
+
+.do-something {
+  border: 3px solid #803e00;
+  margin:  25px;
+  padding: 10px 10px 5px 10px;
+  border-radius: 6px 6px 6px 6px;
+}
+
+</style>
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Basic bio-stats</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="0.1" data-path=""><a href="#course-information-and-overview"><i class="fa fa-check"></i><b>0.1</b> Course information and overview</a></li>
+<li class="chapter" data-level="0.2" data-path=""><a href="#why-data-analysis"><i class="fa fa-check"></i><b>0.2</b> Why do a data analysis course?</a></li>
+<li class="chapter" data-level="0.3" data-path=""><a href="#overview"><i class="fa fa-check"></i><b>0.3</b> Course overview</a><ul>
+<li class="chapter" data-level="0.3.1" data-path=""><a href="#aims"><i class="fa fa-check"></i><b>0.3.1</b> Aims</a></li>
+<li class="chapter" data-level="0.3.2" data-path=""><a href="#objectives"><i class="fa fa-check"></i><b>0.3.2</b> Objectives</a></li>
+<li class="chapter" data-level="0.3.3" data-path=""><a href="#assumed-background"><i class="fa fa-check"></i><b>0.3.3</b> Assumed background</a></li>
+<li class="chapter" data-level="0.3.4" data-path=""><a href="#methods"><i class="fa fa-check"></i><b>0.3.4</b> Methods</a></li>
+<li class="chapter" data-level="0.3.5" data-path=""><a href="#non-assessed-material"><i class="fa fa-check"></i><b>0.3.5</b> Non-assessed material</a></li>
+<li class="chapter" data-level="0.3.6" data-path=""><a href="#what-is-required-of-you"><i class="fa fa-check"></i><b>0.3.6</b> What is required of you?</a></li>
+<li class="chapter" data-level="0.3.7" data-path=""><a href="#assessment"><i class="fa fa-check"></i><b>0.3.7</b> Assessment</a></li>
+</ul></li>
+<li class="chapter" data-level="0.4" data-path=""><a href="#how-to-use-the-teaching-material"><i class="fa fa-check"></i><b>0.4</b> How to use the teaching material</a><ul>
+<li class="chapter" data-level="0.4.1" data-path=""><a href="#printed-material2"><i class="fa fa-check"></i><b>0.4.1</b> The online course book</a></li>
+<li class="chapter" data-level="0.4.2" data-path=""><a href="#printed-material"><i class="fa fa-check"></i><b>0.4.2</b> Printed material</a></li>
+<li class="chapter" data-level="0.4.3" data-path=""><a href="#how-to-make-best-use-of-it"><i class="fa fa-check"></i><b>0.4.3</b> How to make best use of the teaching material</a></li>
+<li class="chapter" data-level="0.4.4" data-path=""><a href="#conventions"><i class="fa fa-check"></i><b>0.4.4</b> Conventions used in the course material</a></li>
+<li class="chapter" data-level="0.4.5" data-path=""><a href="#feedback"><i class="fa fa-check"></i><b>0.4.5</b> Feedback</a></li>
+<li class="chapter" data-level="0.4.6" data-path=""><a href="#help"><i class="fa fa-check"></i><b>0.4.6</b> Help sessions</a></li>
+<li class="chapter" data-level="0.4.7" data-path=""><a href="#overall"><i class="fa fa-check"></i><b>0.4.7</b> Overall…</a></li>
+</ul></li>
+<li class="chapter" data-level="0.5" data-path=""><a href="#health-and-safety"><i class="fa fa-check"></i><b>0.5</b> Health and safety using display screen equipment</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Ecological statistics: forked from APS 240-Data Analysis and Statistics with R</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="header">
+<h1 class="title">Ecological statistics: forked from APS 240-Data Analysis and Statistics with R</h1>
+<p class="author"><em>Dylan Z. Childs; Anthony Davidson; others</em></p>
+<p class="date"><em>2020-07-18</em></p>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="co"># myPaths &lt;- .libPaths(&quot;C:/Program Files/R/R-4.0.1/library&quot;)</span></span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="co"># myPaths &lt;- c(myPaths)</span></span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co"># .libPaths(myPaths)  # add new path</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co"># .libPaths()</span></span></code></pre></div>
+<p><strong>Anthony Davidson:</strong> <em>July 2020</em></p>
+<p>I have began building out this project to incorperate some tutoring of statistics for high school students. The core components of these assessments are focused around:</p>
+<p><strong>Linear Regression</strong></p>
+<p><strong>Anthony Davidson:</strong> <em>December 2019</em> I have been using this as a resource for my PhD work and other small projects using biological statistics. The orginal resource can be found at David’s site <a href="">here</a>. I have not taught this class but use it as a resource and a place to keep my notes In the open source framework these notes may help develop a ecology and Statistics course.</p>
+<div id="course-information-and-overview" class="section level2">
+<h2><span class="header-section-number">0.1</span> Course information and overview</h2>
+<p>This is the online course book for the <strong>Data Analysis and Statistics with R</strong> (<a href="https://www.shef.ac.uk/aps/currentug/level2/aps240">APS 240</a>) module with the extended comments and application from my research and personal projects (Anthony).</p>
+<p>You can view this book in any modern desktop browser, as well as on your phone or tablet device. The site is self-contained—it contains all the material you are expected to learn this year.</p>
+</div>
+<div id="why-data-analysis" class="section level2">
+<h2><span class="header-section-number">0.2</span> Why do a data analysis course?</h2>
+<p>To do science yourself, or to understand the science other people do, you need some understanding of the principles of experimental design, data collection, data presentation and data analysis. That doesn’t mean becoming a maths wizard, or a computer genius. It means knowing how to take sensible decisions about designing studies and collecting data, and then being able to interpret those data correctly. Sometimes the methods required are extremely simple, sometimes more complex. You aren’t expected to get to grips with all of them, but what we hope to do in the course is to give you a good practical grasp of the core techniques that are widely used in biology and environmental sciences. You should then be equipped to use these techniques intelligently and, equally importantly, know when they are not appropriate, and when you need to seek help to find the correct way to design or analyse your study.</p>
+<p>You should, with some work on your part, acquire a set of skills which you will use at various stages throughout the remainder of your course, in practicals, field courses and in your project work. These same skills will almost certainly also be useful after your degree, whether doing biology, or something completely different. We live in a world that is increasingly flooded with data, and people who know how to make sense of this are in high demand. The R statistical programming environment underpins much of this endeavour, in both academic and commercial settings. Learning the basic principles of data analysis with R will only improve your employment prospects.</p>
+</div>
+<div id="overview" class="section level2">
+<h2><span class="header-section-number">0.3</span> Course overview</h2>
+<div id="aims" class="section level3">
+<h3><span class="header-section-number">0.3.1</span> Aims</h3>
+<p>This course has two main, and equal, aims. The first is to provide a basic training in the use of statistical methods and software (<code>R</code> and <code>RStudio</code>) to analyse biological data. The second is to introduce some of the principles of experimental design, sampling, data interpretation, graphical presentation and scientific writing relevant to the biological and environmental sciences.</p>
+</div>
+<div id="objectives" class="section level3">
+<h3><span class="header-section-number">0.3.2</span> Objectives</h3>
+<p>By the end of the course you should be familiar with the principles and use of a range of basic statistical techniques, be able to use the R programming language to carry out appropriate analyses of biological data, evaluate your statistical models, and make sensible interpretation of the results. You should be able to relate the ways in which data are collected (by different designs of sampling or experiment) to the types of statistical methods that can be used to analyse those data. In combination with the skills you developed in <a href="https://www.shef.ac.uk/aps/currentug/level1/aps135">APS 135</a>, you should be able to decide on appropriate ways of investigate data graphically, be able to produce good quality scientific figures, and incorporate these, along with statistical results, into a formal report.</p>
+</div>
+<div id="assumed-background" class="section level3">
+<h3><span class="header-section-number">0.3.3</span> Assumed background</h3>
+<p>You are assumed to be familiar with the use of personal computers on the University network, and with the use of R for data input, manipulation and plotting introduced in <a href="https://www.shef.ac.uk/aps/currentug/level1/aps135">APS 135</a>. If you are unsure about these basic methods, then you will need to revise the material covered in the Level 1 IT practicals. The key skills you need are covered in the [Programming prerequisites] chapter. We will revise the most important topics in the first practical session.</p>
+</div>
+<div id="methods" class="section level3">
+<h3><span class="header-section-number">0.3.4</span> Methods</h3>
+<p>The course runs over semester 1, in weeks 1-12. The first 10 weeks consists of a 2-hour IT practical each week, along with some additional preparatory practical work and reading. All components of the course are compulsory. The remaining 2 weeks are devoted to revision and an assessed data analysis project.</p>
+<p>Students come to APS 240 with very different experiences and competancies. Because of this unavoidable situation, the course is designed as a ‘self-teaching’ module to you flexibility in the rate at which you work through the material. This doesn’t mean no one is going to help you, but you are expected to take responsibility of your own learning.</p>
+<div id="preparatory-reading-and-practical-work" class="section level4">
+<h4><span class="header-section-number">0.3.4.1</span> Preparatory reading and practical work</h4>
+<p>Each week starts with some preparatory reading and ‘walk-through’ practical work from the course book. We’ll let you know what you need to do each week. The book chapters generally come in one of two forms:</p>
+<ul>
+<li><p><strong>Practical walk-through chapters.</strong> These are designed to introduce the practical aspects of different analysis techniques. These generally focus on the ‘when’ and ‘why’ we use a particular technique, as well how to actually do it in R. You are free (encouraged even) to work through these in groups.</p></li>
+<li><p><strong>Concept chapters.</strong> These focus on ideas and concepts, rather then using R <em>per se</em> (though they may use R from time to time). They provide background information or more detailed discussion relating to the topics you are covering. These are an integral part of the course. Please don’t skip them!</p></li>
+</ul>
+<p>It is up to you to complete the preparatory work in your own time. However, we are not expecting you to understand everything the first time around. This point is so important it’s worth saying again—you are not expected to understand everything in the course book the first time you read it. Just do your best to understand it, taking careful notes of anything you’re struggling with. The TAs and staff will happily answer any questions you have during the timetabled sessions. Indeed, that is what they’re there to do.</p>
+</div>
+<div id="timetabled-practicals" class="section level4">
+<h4><span class="header-section-number">0.3.4.2</span> Timetabled practicals</h4>
+<p><em>not current for this version of the text</em></p>
+</div>
+</div>
+<div id="non-assessed-material" class="section level3">
+<h3><span class="header-section-number">0.3.5</span> Non-assessed material</h3>
+<p><em>not current for this version of the text</em></p>
+</div>
+<div id="what-is-required-of-you" class="section level3">
+<h3><span class="header-section-number">0.3.6</span> What is required of you?</h3>
+<p>A willingness to learn and to take responsibility for your learning! Data analysis is not the easiest subject in the world, but neither is it the most difficult. It’s worth making the effort. What you learn in this course will form the basis for much of what you do in field course, practical and project work that follows in later.</p>
+</div>
+<div id="assessment" class="section level3">
+<h3><span class="header-section-number">0.3.7</span> Assessment</h3>
+<p><em>not current for this version of the text</em></p>
+</div>
+</div>
+<div id="how-to-use-the-teaching-material" class="section level2">
+<h2><span class="header-section-number">0.4</span> How to use the teaching material</h2>
+<div id="printed-material2" class="section level3">
+<h3><span class="header-section-number">0.4.1</span> The online course book</h3>
+<p>All of the teaching material will be made available through a single online course book (this website). The book is organised such that it forms a complete, stand-alone introduction to data analysis. You should bookmark this now if you haven’t already done so. There are a couple of very good reasons for delivering the course material this way:</p>
+<ul>
+<li><p><strong>Practicality</strong>: Most exercises can be completed by building on the examples in the course material. Copying the relevant R code from the course website and pasting it into your script is much more efficient, and less error-prone, than copying by eye from a printed page. A website also allows us to cross-reference topics and link to the odd bit of outside reading.</p></li>
+<li><p><strong>Permanence</strong>: Experience suggests that many of you will want to refer to the material in this course after you graduate. However, bits of paper are easy to lose, and because the R landscape is always changing, some elements of the course may be less relevant in a few years time. By putting everything on a website, we can ensure that you will always be able to access a familiar, but up-to-date data analysis course.</p></li>
+</ul>
+</div>
+<div id="printed-material" class="section level3">
+<h3><span class="header-section-number">0.4.2</span> Printed material</h3>
+<p>There is a small amount of printed material in this course:</p>
+<ul>
+<li><p><strong>Cheat sheets</strong>: We will supply you with copies of the <code>dplyr</code> and <code>ggplot2</code> <a href="https://www.rstudio.com/resources/cheatsheets/">cheat sheets</a> produced by the people who build RStudio . It may help you to refer to these when you need use either the <code>dplyr</code> or <code>ggplot2</code> packages in a practical.</p></li>
+<li><p><strong>Assessment information</strong>: Although much of the assessment will be done on the computer, any information relating to the assessments will be produced in printed form. This will be handed out in week 10.</p></li>
+</ul>
+</div>
+<div id="how-to-make-best-use-of-it" class="section level3">
+<h3><span class="header-section-number">0.4.3</span> How to make best use of the teaching material</h3>
+<p>DO:</p>
+<ul>
+<li><p>When working through an exercise, follow the instructions carefully, but also <strong>think about what you are doing</strong>. Work at your own pace; you are not being assessed on whether you can do an exercise in a particular time.</p></li>
+<li><p>Ask teaching staff for help in the practicals if there are things that you don’t follow, or when things don’t seem to come out the way they should—that’s what they’re there for!</p></li>
+<li><p>Collaborate! If you are not sure you understand something feel free to discuss it with a friend—more often than not this is exactly how scientists resolve and clarify problems in their experimental design and analysis.</p></li>
+<li><p>Be prepared to experiment with R to solve problems that you encounter. You can’t break your R or RStudio by generating errors. When you run into a problem, go back to the line of code that generated the first error and try making a change.</p></li>
+<li><p>Complete each week’s work before the next week’s session. You may be able to complete some sessions quite quickly, others may take more time and require more work on your own outside the timetabled periods.</p></li>
+</ul>
+<p>DON’T:</p>
+<ul>
+<li><p>Just copy what someone else tells you to do without understanding why you are doing it. You need to understand it for yourself (and you’ll be on your own in the exam).</p></li>
+<li><p>Skip practicals or preparatory work and get behind schedule — there is too much material to assimilate all at once when you get to the assessments. Like all skills data analysis is something you have practice.</p></li>
+</ul>
+</div>
+<div id="conventions" class="section level3">
+<h3><span class="header-section-number">0.4.4</span> Conventions used in the course material</h3>
+<p>The teaching material, as far as possible, uses a standard set of conventions to differentiate between various sorts of information, action and instruction:</p>
+<div id="text-instructions-and-explanations" class="section level4">
+<h4><span class="header-section-number">0.4.4.1</span> Text, instructions, and explanations</h4>
+<p>Normal text, instructions, explanations etc. are written in the same type as this paragarph (obvious really), we will tend to use bold to highlight specific technical terms when they are first introduced. Italics are generally used for emphasis and with Latin names.</p>
+<p>When we want you to do something important or pay particular attentions—e.g., waksing you to write down an answer or giving you a set of instructions—we place the text inside a box like this one:</p>
+<div class="do-something">
+<p>
+<strong>Brown boxes</strong>
+</p>
+<p>
+Here is some important text telling you to do something or remember something important. Sometimes it just contains a warning that the next bit will be hard…
+</p>
+</div>
+<p>Please don’t ignore these. At various points in the text you will also come across different coloured boxes that contain additional information:</p>
+<div class="advanced-box">
+<p>
+<strong>Blue boxes</strong>
+</p>
+<p>
+These aim to offer a not-too-technical discussion of how or why something works the way it does. These are things that it may be useful to know, or at least know about, but aren’t necessarily part of the main thread of a section.
+</p>
+</div>
+<div class="warning-box">
+<p>
+<strong>Red boxes</strong>
+</p>
+<p>
+These contain a <strong>warning</strong> or flag a common <strong>gotcha</strong> that may trip you up. They highlight potential pitfalls and show you how to avoid them. You will avoid a lot of future mistakes if pay close attention to these.
+</p>
+</div>
+<p>We use block quotations to indicate an example of how a particular statistical result should be presented when you write it in a report: e.g.</p>
+<blockquote>
+<p>The mean lengths of male and female locusts differed significantly (t=4.04, df=15, p=0.001), with males being significantly larger.</p>
+</blockquote>
+</div>
+<div id="r-code-files-and-rstudio" class="section level4">
+<h4><span class="header-section-number">0.4.4.2</span> R code, files and RStudio</h4>
+<p><code>This typeface</code> is used to distinguish R code within a sentence of text: e.g. “We use the <code>summary</code> function to obtain information about an object produced by the <code>lm</code> function.”</p>
+<p>A sequence of selections from an RStudio menu is indicated as follows: e.g. <strong>File ▶ New File ▶ R Script</strong></p>
+<p>File names referred to in general text are given in upper case in the normal typeface: e.g. MYFILE.CSV.</p>
+</div>
+</div>
+<div id="feedback" class="section level3">
+<h3><span class="header-section-number">0.4.5</span> Feedback</h3>
+<p>There are a number of ways in which you can obtain feedback on how well you understand the course material</p>
+<div id="self-assessment-questions" class="section level4">
+<h4><span class="header-section-number">0.4.5.1</span> Self-assessment questions:</h4>
+<p>At various points in the course material there are questions for you to answer. When you reach one of these, you should be in a position to answer the question —- so make a note of the answer! When you’ve completed the session, you can check your answers using the ‘self-test’ for that particular session on MOLE. You will see if you have the correct answer and in some cases you will also get some additional explanation as to why that answer is right (or wrong!).</p>
+</div>
+<div id="each-other" class="section level4">
+<h4><span class="header-section-number">0.4.5.2</span> Each other:</h4>
+<p>Discussing what you are doing with someone as you go along, or working through a problem with someone else, can help clarify your understanding. Please bear in mind, however, that you learn little or nothing by simply copying information from someone else, and when it comes to the assessed project, it must be your own work.</p>
+</div>
+<div id="staff" class="section level4">
+<h4><span class="header-section-number">0.4.5.3</span> Staff:</h4>
+<p>In the practicals you will have opportunities to ask questions and discuss what you are doing with staff and teaching assistants. They are not just there to help you with the practical. You should use them to help you work through any problems you have with the course material, both conceptual and practical. There will also be an opportunity to have topics you raise discussed in later practicals.</p>
+</div>
+</div>
+<div id="help" class="section level3">
+<h3><span class="header-section-number">0.4.6</span> Help sessions</h3>
+<p>We will run an open ‘help’ session every Friday from 12-2.00pm, in the B56 IT Room in APS. An instructor will be on hand during this period to answer specific questions about the course material. This room holds about 40 students, so please only attend if you require one-to-one assistance, i.e, don’t just use this session to complete unfinished practicals (unless you are stuck of course).</p>
+</div>
+<div id="overall" class="section level3">
+<h3><span class="header-section-number">0.4.7</span> Overall…</h3>
+<p>We hope that the material is clear and easy to use, and that you find the course useful, or even enjoy it!</p>
+<p>In a text of this size, which is continually being improved and updated, errors do creep in; if you find something you think is wrong please tell us. If it’s not wrong we will be happy to explain why, and if it is then you will save yourself and others a lot of confusion. Similarly, if you have any comments or suggestions for improving the teaching materials please let us know.</p>
+</div>
+</div>
+<div id="health-and-safety" class="section level2">
+<h2><span class="header-section-number">0.5</span> Health and safety using display screen equipment</h2>
+<p>Although using a computer may not seem like a particularly risky activity you should be aware that you can suffer ill effects if you work at a computer for long periods without observing a few sensible precautions. The standard guidelines are as follows:</p>
+<ul>
+<li><p>Make sure that your equipment is properly adjusted:</p>
+<ul>
+<li><p>ensure that your lower back is well supported by adjusting the
+seat back height</p></li>
+<li><p>adjust your chair seat height so that your forearms are level
+when using the keyboard</p></li>
+<li><p>make sure that the front edge of the keyboard is at least 8-10
+cm away from the edge of the desk</p></li>
+<li><p>if you are using a mouse, have it far enough away from the edge
+of the desk so that your wrist is supported whilst you use it.
+If you can learn to use the mouse with either hand then this can
+help avoid strains</p></li>
+</ul></li>
+<li><p>Do not have your screen positioned in such a way that there is glare
+or reflections from the windows or room lights on the screen.</p></li>
+<li><p>Maintain good posture.</p></li>
+<li><p>Take regular breaks away from the computer. It is recommended that
+you take about 10 minutes break every hour.</p></li>
+</ul>
+<p>Most Departments will have a Display Screen Trainer or Advisor, who can offer specific advice if you are using a display screen for a substantial amount of time, or if you experience, or anticipate, specific problems.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/davan690/stats-for-bio/edit/master/%s",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"toc": {
+"collapse": "section"
+},
+"split_by": "section"
+});
+});
+</script>
+
+</body>
+
+</html>
