@@ -2,4 +2,9 @@ book_filename: "stats-for-bio"
 before_chapter_script: "preamble.R"
 chapter_name: "Chapter "
 output_dir: "docs"
-rmd_files: ["index.Rmd", "0_02_R_prerequisites.Rmd"]
+rmd_files: ["index.Rmd", "1_00.Rmd","0_02_R_prerequisites.Rmd", "0_02_R_prerequisites.Rmd","1_00.Rmd", "1_01_asking_questions.Rmd", "1_02_data_variables.Rmd", "1_03_learning_data.Rmd", "2_00.Rmd",
+"2_01_standard_error.Rmd","2_02_significance_p-values.Rmd","2_03_comparisons_p-values.Rmd","2_04_concluding_stats_concepts.Rmd","3_00.Rmd","3_01_parametric_statistics.Rmd", "3_04_correlation.Rmd","4_00.Rmd",
+"4_01_regression_intro.Rmd","4_02_simple_regression.Rmd", "4_03_one_way_anova_intro.Rmd","4_04_one_way_anova_R.Rmd","5_00.Rmd","5_01_assumptions.Rmd", "5_02_diagnostics.Rmd","5_03_transformations.Rmd",
+"5_04_multiple_comparisons.Rmd","6_00.Rmd", "6_01_experimental_design_intro.Rmd",  "6_02_t-tests_paired_sample.Rmd", "6_03_randomised_block_designs_R.Rmd", "7_00.Rmd","7_01_two_way_anova_intro.Rmd",
+"7_02_two_way_anova_R.Rmd", "7_03_ancova_intro.Rmd","7_04_ancova_R.Rmd", "8_00.Rmd", "8_01_comparing_frequencies.Rmd" , "8_02_chi_sqr_gof.Rmd","8_03_chi_sqr_cont_tables.Rmd", "8_04_non_parametric_tests.Rmd",
+"9_00.Rmd", "9_02_choosing-models.Rmd","9_03_scientific-reports.Rmd","9_04_one_vs_two-tailed_tests.Rmd"]

@@ -25,7 +25,13 @@ The data we collect in a study can be organised one or more statistical **variab
 When using R, we often store a data set in a **data frame**. Each column in the data frame is one of R's **vectors** --- numeric, character, etc. The data are said to be **tidy** if the columns of the data frame  correspond to the statistical variables in our data, and each row corresponds to a single observation. This simple connection between abstract statistical concepts and the concrete objects in R is not coincidence. R was designed first and foremost to analyse data.
 ```
 
-## Revision: Types of variable {#var-types}
+## Reading data into R
+
+Last year we made extensive use of data sets that reside inside various R packages. This meant we could use the data without getting bogged down trying to read it into R. We don't have the luxury of this short cut when we work with our own data, so we'll adopt more realistic practices in this book. Whenever we need to work with a data set, we will have to first save a copy of it onto our computer, and then read it into R. All the data sets we use are stored as a Comma Separated Value ('CSV') text file. The `read.csv` function can be used to read in such files. The resulting data object in R is a data frame. A data frame is a table-like object that collects together different variables, storing each of them as a named column. We can access the data inside the data frame by referring to particular columns and rows, or manipulate the whole data frame with a package like `dplyr`. 
+
+If that last paragraph was confusing, it would be a good idea to work through the [data frames]({{site.baseurl-L1}}/data-frames.html#access-data) chapter in the APS 135 course book.
+
+## Types of variable {#var-types}
 
 When it comes to designing an experimental study or carrying out data analysis, it is very important to understand what sort of data we need, or have, as this affects what we can do with it. The variables in a data set can often be classified as being either __numeric__ or __categorical__: numeric variables have values that describe a measurable quantity as a number, like 'how many' or 'how much'; categorical variables have values that describe a characteristic of an observation, like 'what type' or 'which category'. Numeric variables can be further characterised according to the type of scale they are measured on (__interval__ vs. __ratio__ scales). Categorical variables can be further characterised according to whether or not they have a natural order (__nominal__ vs. __ordinal__ variables).
 

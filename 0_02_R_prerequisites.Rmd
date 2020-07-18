@@ -1,21 +1,86 @@
 # Programming prerequisites
 
-This chapter gives a quick overview of the prerequisite R skills needed to use this book (we studied these last year). We will use these skills this year, so you may need to spend revising them if you feel that you're a little rusty.
+This chapter gives a quick overview of the prerequisite tools needed to use this book. We will use these tools to build and develop courses in statistics.
+
+This project combines a collection of tools and packages used in R and RStudio for statistical analysis. Each class or short project can be found in the `drafts` folder. Currently this only has Dylans class notes.
+
+To begin working in this open science (free) framework there are a collection of programs that make the process much more fluient. This is different for everyone but as I build and develop code on my personal computer these are the programs I use:
+
+- [Typora]
+- [GIT]
+- [GIThub]
+- [Visual Studio Code]
+- [R]
+- [RStudio]
+- [Pandoc]
+
+Less frequently:
+
+- [Python]
+
+- Microsoft standards
+  - [Word]
+  - [Excel]
+  - [Powerpoint]
+  
+- [Ruby]
+
+
+
+Setup and running projects using a reproducible pipeline of tools results in having to combine many different tools but the outcome is a workflow that reduces having to repeat simple teaching actions and have evidence of your resources on the fly.
+
+### Files and folders
+
+The project folder is hosted on `github` in a private repository that we are both collaborators on. 
+
+#### GIT
+
+The version control system commonly used for computer programming projects.
+
+#### GIThub
+
+The file storage system for GIT. This is an online repository and file storage system.
+
+You can just download a zip file of the repository "as is" by:
+
+![How to Fork from a github account](./img/github-download-options.png)
+
+Or you can "fork" the repository and work like I have here in the demo I quickly recorded using visual studio code to work with the `git` repository.
+
+![github repository page](./img/github-repo-shot.png)
+
+## Statistics
+
+To teach statistics one of the most important aspects in the examples and demostrations. This can be seen as a toolkit to reproduce this with modifications to the interesting bits (data and visualisations) but with the same core statistical resources supporting the application.
+
+### R
+
+This is the statistical program that runs all of the work with numbers and other analysis/visualisations.
+
+![image-20200718121317622](./img/image-20200718121317622.png)
 
 ```{block, type='do-something'}
 
-The key R skills you need to have in place to use this book will be revised in the first two practical sessions. The lecture slides will be placed on MOLE after the practical.
+The key R skills you need to have in place to use this book will be revised in the first two practical sessions.
 
-**Transfer students**
+**Transfer/NEW one-on-one students**
 
 The material in this chapter won't make any sense at the moment if you are an Environmental Sciences student joining us from Geography, or a student transferring into APS from a different department. Don't panic! You will have the opportunity to catch up in the first few weeks.
 ```
+
+### RStudio
+
+The interactive interface for R. Also known as a GUI.
+
+![image-20200718121436961](./img/image-20200718121436961.png)
 
 ## Starting an R session in RStudio
 
 Here is the process you should go through every time you start a new R session:
 
-1. Open up RStudio and set your working directory. Do this via the RStudio menu system: **Session ▶ Set Working Directory ▶ Choose Working Directory...**. Be sure to choose a sensible location. The working directory is where R will look for data files and R scripts. It's simplest to use the same working directory in every practical, but it isn't necessary to do this.
+1. Open up RStudio and set your working directory. 
+
+Do this via the RStudio menu system: **Session ▶ Set Working Directory ▶ Choose Working Directory...**. Be sure to choose a sensible location. The working directory is where R will look for data files and R scripts. It's simplest to use the same working directory in every practical, but it isn't necessary to do this.
 
 2. Open up a new R script using the RStudio menu system: **File ▶ New File ▶ R Script**. This will create (but not save) an empty, unnamed R script. Don't create any other kind of file unless you already know how to use R Notebooks or R Markdown files.
 
@@ -45,26 +110,26 @@ R packages extend the basic functionality of R so that we can do more with it. I
 Here's the key point: Installing a package, and then loading and attaching the package, are different operations. We only have to install a package once onto our computer, but we have to load and attach the package every time we want to use it in a new R session (i.e. every time we start RStudio). If that doesn't make any sense, revise the [package system](http://dzchilds.github.io/aps-data-analysis-L1/help-packages.html) chapter in the APS 135 course book.
 
 Installing a package can be done via the `install.packages` function, e.g.
+
 ```{r, eval=FALSE}
 install.packages("dplyr")
 ```
+
 There's no need to leave `install.packages` statements in an R script. Loading and attaching a package so that it can actually be used happens via the `library` function, e.g.
+
 ```{r, eval=FALSE}
 library("dplyr")
 ```
+
 We do often leave `library` statements in scripts.
 
-## Reading data into R
-
-Last year we made extensive use of data sets that reside inside various R packages. This meant we could use the data without getting bogged down trying to read it into R. We don't have the luxury of this short cut when we work with our own data, so we'll adopt more realistic practices in this book. Whenever we need to work with a data set, we will have to first save a copy of it onto our computer, and then read it into R. All the data sets we use are stored as a Comma Separated Value ('CSV') text file. The `read.csv` function can be used to read in such files. The resulting data object in R is a data frame. A data frame is a table-like object that collects together different variables, storing each of them as a named column. We can access the data inside the data frame by referring to particular columns and rows, or manipulate the whole data frame with a package like `dplyr`. 
-
-If that last paragraph was confusing, it would be a good idea to work through the [data frames]({{site.baseurl-L1}}/data-frames.html#access-data) chapter in the APS 135 course book.
+### Text editors
 
 
+#### Typora
 
+A great markdown editor (a way of viewing and editing text files for the internet and other things).
 
+![image-20200718121518980](./img/image-20200718121518980.png)
 
-
-
-
-
+I also like using the text editor here (Typora) for spell checking and screenshots.
