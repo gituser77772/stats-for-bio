@@ -28,7 +28,7 @@ This is the statistical program that runs all of the work with numbers and other
 
 The interactive interface for R. Also known as a GUI.
 
-![image-20200718121436961](C:\Code\stats-for-bio\img\image-20200718121436961.png)
+![image-20200718121436961](\img\image-20200718121436961.png)
 
 #### GIT
 
@@ -52,7 +52,7 @@ The file storage system for GIT. This is an online repository and file storage s
 
 A great markdown editor (a way of viewing and editing text files for the internet and other things).
 
-![image-20200718121518980](C:\Code\stats-for-bio\img\image-20200718121518980.png)
+![image-20200718121518980](\img\image-20200718121518980.png)
 
 I also like using the text editor here (Typora) for adding quick notes and screenshots.
 
