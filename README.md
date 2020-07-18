@@ -28,7 +28,7 @@ This is the statistical program that runs all of the work with numbers and other
 
 The interactive interface for R. Also known as a GUI.
 
-![image-20200718121436961](\img\image-20200718121436961.png)
+![image-20200718121436961](./img/image-20200718121436961.png)
 
 #### GIT
 
