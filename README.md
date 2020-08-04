@@ -1,6 +1,6 @@
 # Overview
 
-Find the web view of this book [here: https://davan690.github.io/stats-for-bio/]("https://davan690.github.io/stats-for-bio/")
+Find the web view of this book [here: https://davan690.github.io/stats-for-bio/](https://davan690.github.io/stats-for-bio/)
 
 This is the course book for the Data Analysis in R course applied to biological examples. The course has orginally been based out of the Department of Animal and Plant Sciences at the University of Sheffield and extended for the University of Canberra and other tutoring arrangements. 
 
